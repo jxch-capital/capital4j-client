@@ -1,0 +1,15 @@
+module org.jxch.capital.client {
+
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires spring.boot;
+    requires spring.boot.autoconfigure;
+    requires spring.context;
+    requires static lombok;
+    requires org.controlsfx.controls;
+
+
+    opens org.jxch.capital.client;
+    exports org.jxch.capital.client;
+
+}

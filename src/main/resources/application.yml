@@ -1,0 +1,4 @@
+app:
+  fxml: /fxml/MainView.fxml
+  title: Capital4J-Client
+

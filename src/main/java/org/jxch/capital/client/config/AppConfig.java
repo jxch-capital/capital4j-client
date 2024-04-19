@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "app")
 public class AppConfig {
-    private String fxml;
-    private String title;
+    private String mainFxml;
+    private String mainStyle;
+    private String h2dbPath;
 }

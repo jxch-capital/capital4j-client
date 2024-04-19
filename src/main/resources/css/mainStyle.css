@@ -1,0 +1,36 @@
+
+.root {
+    -fx-background-color: #333;
+    -fx-text-fill: #ccc;
+}
+
+.button, .menu-button {
+    -fx-background-color: #555;
+    -fx-text-fill: #eee;
+}
+
+.label {
+    -fx-text-fill: #ccc;
+}
+
+.menu-bar {
+    -fx-background-color: #444;
+}
+
+.showing {
+    -fx-background-color: #444;
+}
+
+.context-menu {
+    -fx-background-color: #444;
+}
+
+.menu-item:focused {
+    -fx-background-color: rgba(76, 94, 100, 0.96);
+}
+
+.menu-item {
+    -fx-background-color: #444;
+    -fx-text-fill: #eee;
+}
+

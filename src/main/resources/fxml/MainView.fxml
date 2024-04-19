@@ -6,22 +6,41 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import com.jfoenix.controls.JFXToolbar?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.jxch.capital.client.view.MainView"
-            prefHeight="400.0" prefWidth="600.0">
-<HBox>
+            prefHeight="800.0" prefWidth="1000.0">
     <VBox>
         <MenuBar>
-            <Menu text="test1">
-                <MenuItem mnemonicParsing="false" text="Home"/>
-                <MenuItem mnemonicParsing="false" text="Home"/>
+            <Menu text="设置">
+                <MenuItem mnemonicParsing="false" text="置顶" onAction="#setAlwaysOnTop"/>
             </Menu>
-            <Menu text="test1">
-                <MenuItem mnemonicParsing="false" text="Home"/>
-                <MenuItem mnemonicParsing="false" text="Home"/>
+            <Menu text="KHash">
+                <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+                <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+                <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+                <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+                <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+            </Menu>
+            <Menu text="数据源">
+
+            </Menu>
+            <Menu text="特征工程">
+
+            </Menu>
+            <Menu text="LLM">
+                <MenuItem mnemonicParsing="false" text="知识库管理"/>
+            </Menu>
+            <Menu text="模型">
+
+            </Menu>
+            <Menu text="订阅">
+
+            </Menu>
+            <Menu text="看板">
+
             </Menu>
         </MenuBar>
     </VBox>
-</HBox>
 </AnchorPane>

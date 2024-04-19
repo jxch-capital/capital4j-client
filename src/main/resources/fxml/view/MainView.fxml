@@ -9,12 +9,11 @@
 <?import com.jfoenix.controls.JFXToolbar?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.jxch.capital.client.view.MainView"
+            fx:controller="org.jxch.capital.client.fx.view.MainView"
             prefHeight="800.0" prefWidth="1000.0">
     <VBox>
         <MenuBar>
             <Menu text="设置">
-                <MenuItem mnemonicParsing="false" text="置顶" onAction="#setAlwaysOnTop"/>
             </Menu>
             <Menu text="KHash">
                 <MenuItem mnemonicParsing="false" text="构建Hash索引"/>

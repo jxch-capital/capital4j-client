@@ -34,3 +34,17 @@
     -fx-text-fill: #eee;
 }
 
+.title-bar {
+    -fx-background-color: rgba(0,0,0,0.68);
+    -fx-text-fill: rgba(255,255,255,0.6);
+    -fx-padding: 10;
+}
+
+.title-bar-button {
+}
+
+.title-bar-button:focused {
+    -fx-background-color: #444;
+    -fx-text-fill: black;
+}
+

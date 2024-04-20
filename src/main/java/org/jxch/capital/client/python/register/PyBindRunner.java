@@ -1,8 +1,8 @@
 package org.jxch.capital.client.python.register;
 
 @FunctionalInterface
-public interface PyBindRunner {
+public interface PyBindRunner<T> {
 
-    String run(String... command);
+    String run(T command);
 
 }

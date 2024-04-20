@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 @Component
 @NoArgsConstructor
 public class PythonBinderRegister implements BeanFactoryPostProcessor, InvocationHandler, ApplicationListener<ContextRefreshedEvent> {
+    private PyBindRunnerParamProcessor pyBindRunnerParamProcessor;
     private final Map<String, String> binders = new HashMap<>();
     private volatile Map<String, Resource> resources = null;
     private ResourcePatternResolver resourcePatternResolver;
@@ -59,8 +60,7 @@ public class PythonBinderRegister implements BeanFactoryPostProcessor, Invocatio
         File appScriptDir = new File(appConfig.getPythonExecutorAppScriptsAbsolutePath());
         File copyFile = appScriptDir.toPath().resolve(pyFile.getName()).toFile();
         Files.copy(pyFile.toPath(), copyFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-        return pythonExecutor.run(copyFile, (String[]) args[0]);
+        return pythonExecutor.run(copyFile, pyBindRunnerParamProcessor.encode(args[0]));
     }
 
     @Override
@@ -76,6 +76,7 @@ public class PythonBinderRegister implements BeanFactoryPostProcessor, Invocatio
 
     @Override
     public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
+        pyBindRunnerParamProcessor = SpringUtil.getBean(PyBindRunnerParamProcessor.class);
         pythonExecutor = SpringUtil.getBean(PythonExecutor.class);
         resourcePatternResolver = event.getApplicationContext();
         jfxConfig = SpringUtil.getBean(JFXConfig.class);

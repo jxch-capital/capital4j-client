@@ -23,5 +23,20 @@ public class BSQueryKParam {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     private String frequency;
-    private String adjustflag;
+    private String adjustflag = "2";
+
+    public static BSQueryKParam dayParam() {
+        return BSQueryKParam.builder()
+                .frequency("d")
+                .fields("date,code,open,high,low,close,volume")
+                .build();
+    }
+
+    public static BSQueryKParam dailyParam() {
+        return BSQueryKParam.builder()
+                .frequency("5")
+                .fields("time,code,open,high,low,close,volume")
+                .build();
+    }
+
 }

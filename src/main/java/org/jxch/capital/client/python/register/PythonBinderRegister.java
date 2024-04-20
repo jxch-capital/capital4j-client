@@ -65,6 +65,7 @@ public class PythonBinderRegister implements BeanFactoryPostProcessor, Invocatio
 
     @Override
     public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        log.info("扫描PyBinder并自动注册为Bean");
         for (Class<?> pyBindRunnerClazz : ReflectionsU.scanAllClass(Capital4JClientApp.class.getPackageName(), clazz -> clazz.isInterface() && PyBindRunner.class.isAssignableFrom(clazz))) {
             if (AnnotationUtil.hasAnnotation(pyBindRunnerClazz, PythonBind.class)) {
                 PythonBind pythonBind = AnnotationUtil.getAnnotation(pyBindRunnerClazz, PythonBind.class);

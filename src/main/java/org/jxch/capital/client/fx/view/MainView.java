@@ -25,4 +25,7 @@ public class MainView {
         logStage.show();
     }
 
+    public void echarts(ActionEvent actionEvent) {
+
+    }
 }

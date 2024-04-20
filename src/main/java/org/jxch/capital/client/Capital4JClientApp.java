@@ -1,46 +1,13 @@
 package org.jxch.capital.client;
 
-import cn.hutool.extra.spring.SpringUtil;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import lombok.NonNull;
-import lombok.SneakyThrows;
-import org.jxch.capital.client.exception.GlobalExceptionHandler;
-import org.jxch.capital.client.fx.register.FXBeanUtil;
-import org.jxch.capital.client.fx.scene.MainScene;
-import org.jxch.capital.client.fx.stage.TitleBarStageFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class Capital4JClientApp extends Application {
-    public final static String MAIN_STAGE_BEAN_NAME = "mainStage";
-    private ConfigurableApplicationContext applicationContext;
+public class Capital4JClientApp {
 
     public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void init() {
-        GlobalExceptionHandler.setThreadNotificationsExceptionHandler();
-        applicationContext = SpringApplication.run(Capital4JClientApp.class, getParameters().getRaw().toArray(new String[0]));
-    }
-
-    @Override
-    @SneakyThrows
-    public void start(@NonNull Stage stage) {
-        stage.setScene(FXBeanUtil.getSceneBean(MainScene.class));
-        stage.setTitle(SpringUtil.getApplicationName());
-        stage = SpringUtil.getBean(TitleBarStageFactory.class).init(stage);
-        SpringUtil.registerBean(MAIN_STAGE_BEAN_NAME, stage);
-        stage.show();
-    }
-
-    @Override
-    public void stop() {
-        applicationContext.close();
+        SpringApplication.run(Capital4JClientApp.class, args);
     }
 
 }

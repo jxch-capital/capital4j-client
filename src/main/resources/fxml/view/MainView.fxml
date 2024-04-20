@@ -16,6 +16,9 @@
         <Menu text="设置">
             <MenuItem mnemonicParsing="false" text="环境依赖" onAction="#envSettings"/>
         </Menu>
+        <Menu text="Dashboard">
+            <MenuItem mnemonicParsing="false" text="BI-ECHARTS" onAction="#echarts"/>
+        </Menu>
         <Menu text="KHash">
             <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
             <MenuItem mnemonicParsing="false" text="构建Hash索引"/>

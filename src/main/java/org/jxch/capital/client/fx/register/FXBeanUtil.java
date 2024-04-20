@@ -32,10 +32,6 @@ public class FXBeanUtil {
         return SpringUtil.getBean(StringUtils.uncapitalize(factoryClass.getSimpleName()), Scene.class);
     }
 
-    public static Stage getStageBean(@NonNull Class<?> factoryClass) {
-        return SpringUtil.getBean(StringUtils.uncapitalize(factoryClass.getSimpleName()), Stage.class);
-    }
-
     @NonNull
     public static Stage createStageAndShow(@NonNull Scene scene, String title) {
         Stage stage = new Stage();
@@ -44,6 +40,14 @@ public class FXBeanUtil {
         TitleBarStageFactory.init(stage);
         stage.show();
         return stage;
+    }
+
+    public static void registerStageBean(@NonNull Class<?> clazz, Stage stage) {
+        SpringUtil.registerBean(StringUtils.uncapitalize(clazz.getSimpleName()) + Stage.class.getSimpleName(), stage);
+    }
+
+    public static Stage getStageBean(@NonNull Class<?> clazz) {
+        return  SpringUtil.getBean(StringUtils.uncapitalize(clazz.getSimpleName()) + Stage.class.getSimpleName());
     }
 
 }

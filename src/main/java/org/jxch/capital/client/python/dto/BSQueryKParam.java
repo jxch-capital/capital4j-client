@@ -5,9 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.jxch.capital.client.uilt.FileU;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -15,7 +17,8 @@ import java.util.Date;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class BSQueryKParam {
-    private String csvFile;
+    @Builder.Default
+    private String csvFile = FileU.tmpFilePath(UUID.randomUUID() + ".csv");
     private String code;
     private String fields;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -23,6 +26,7 @@ public class BSQueryKParam {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     private String frequency;
+    @Builder.Default
     private String adjustflag = "2";
 
     public static BSQueryKParam dayParam() {
@@ -37,6 +41,16 @@ public class BSQueryKParam {
                 .frequency("5")
                 .fields("time,code,open,high,low,close,volume")
                 .build();
+    }
+
+    public BSQueryKParam setDayFields() {
+        setFields("date,code,open,high,low,close,volume");
+        return this;
+    }
+
+    public BSQueryKParam setDailyFields() {
+        setFields("time,code,open,high,low,close,volume");
+        return this;
     }
 
 }

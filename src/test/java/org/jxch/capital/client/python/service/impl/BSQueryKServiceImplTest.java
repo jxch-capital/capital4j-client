@@ -5,9 +5,9 @@ import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.jxch.capital.client.domain.mapper.KLineMapper;
+import org.jxch.capital.client.python.mapper.BSQueryKMapper;
 import org.jxch.capital.client.python.dto.BSQueryKParam;
-import org.jxch.capital.client.stock.KLine;
+import org.jxch.capital.client.stock.dto.KLine;
 import org.jxch.capital.client.uilt.FileU;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +20,7 @@ class BSQueryKServiceImplTest {
     @Autowired
     BSQueryKServiceImpl bsQueryKService;
     @Autowired
-    KLineMapper kLineMapper;
+    BSQueryKMapper BSQueryKMapper;
 
     @Test
     void queryKLine() {

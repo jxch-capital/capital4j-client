@@ -1,5 +1,6 @@
 package org.jxch.capital.client.config;
 
+import cn.hutool.core.io.FileUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -43,14 +44,14 @@ public class AppConfig {
                 File pythonFile = Arrays.stream(files).filter(file -> file.getName().contains("python-")).findAny().orElse(null);
                 if (Objects.nonNull(pythonFile)) {
                     setPythonExecutorPath(pythonFile.getAbsolutePath());
-                    if (!new File(getPythonExecutorAppScriptsAbsolutePath()).exists() && new File(getPythonExecutorAppScriptsAbsolutePath()).mkdir()) {
-                        log.info("创建app-scripts目录：{}", getPythonExecutorAppScriptsAbsolutePath());
+                    if (!new File(getPythonExecutorAppScriptsAbsolutePath()).exists()) {
+                        FileUtil.mkdir(getPythonExecutorAppScriptsAbsolutePath());
                     }
                 }
             }
         }
-        if (!new File(getTmpPath()).exists() && new File(getTmpPath()).mkdir()) {
-            log.info("创建tmp目录：{}", getTmpPath());
+        if (!new File(getTmpPath()).exists()) {
+            FileUtil.mkdir(getTmpPath());
         }
     }
 

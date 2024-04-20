@@ -1,4 +1,4 @@
-package org.jxch.capital.client.stock;
+package org.jxch.capital.client.stock.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

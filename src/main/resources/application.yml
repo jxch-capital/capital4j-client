@@ -1,11 +1,12 @@
 app:
-  h2dbPath: G:\data\development\capital4j-client\h2
-  main-fxml: /fxml/MainView.fxml
-  main-style: /css/mainStyle.css
+  data-path: G:\data\development\capital4j-client
+  h2db-path: ${app.data-path}\h2
+  python-path: ${app.data-path}\python
+  python-win-amd64: https://www.python.org/ftp/python/3.12.3/python-3.12.3-embed-amd64.zip
 
 spring:
   datasource:
-    url: jdbc:h2:file:${app.h2dbPath};DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
+    url: jdbc:h2:file:${app.h2db-path};DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
     driverClassName: org.h2.Driver
     username: capital4j-client
     password: capital4j-client

@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
+import org.jxch.capital.client.fx.stage.TitleBarStageFactory;
 
 public class FXBeanUtil {
 
@@ -33,6 +34,16 @@ public class FXBeanUtil {
 
     public static Stage getStageBean(@NonNull Class<?> factoryClass) {
         return SpringUtil.getBean(StringUtils.uncapitalize(factoryClass.getSimpleName()), Stage.class);
+    }
+
+    @NonNull
+    public static Stage createStageAndShow(@NonNull Scene scene, String title) {
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.setScene(scene);
+        TitleBarStageFactory.init(stage);
+        stage.show();
+        return stage;
     }
 
 }

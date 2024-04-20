@@ -9,6 +9,11 @@
     -fx-text-fill: #eee;
 }
 
+.button:focused, .menu-button:focused {
+    -fx-background-color: #444;
+    -fx-text-fill: black;
+}
+
 .label {
     -fx-text-fill: #ccc;
 }

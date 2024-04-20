@@ -5,9 +5,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import org.jxch.capital.client.exception.GlobalExceptionHandler;
 import org.jxch.capital.client.fx.FXBeanUtil;
 import org.jxch.capital.client.fx.scene.MainScene;
-import org.jxch.capital.client.fx.stage.TitleBarStage;
+import org.jxch.capital.client.fx.stage.TitleBarStageFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -23,6 +24,7 @@ public class Capital4JClientApp extends Application {
 
     @Override
     public void init() {
+        GlobalExceptionHandler.setThreadNotificationsExceptionHandler();
         applicationContext = SpringApplication.run(Capital4JClientApp.class, getParameters().getRaw().toArray(new String[0]));
     }
 
@@ -31,7 +33,7 @@ public class Capital4JClientApp extends Application {
     public void start(@NonNull Stage stage) {
         stage.setScene(FXBeanUtil.getSceneBean(MainScene.class));
         stage.setTitle(SpringUtil.getApplicationName());
-        stage = SpringUtil.getBean(TitleBarStage.class).init(stage);
+        stage = SpringUtil.getBean(TitleBarStageFactory.class).init(stage);
         SpringUtil.registerBean(MAIN_STAGE_BEAN_NAME, stage);
         stage.show();
     }

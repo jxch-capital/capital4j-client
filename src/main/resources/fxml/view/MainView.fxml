@@ -7,39 +7,40 @@
 <?import javafx.scene.layout.*?>
 
 <?import com.jfoenix.controls.JFXToolbar?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.jxch.capital.client.fx.view.MainView"
-            prefHeight="800.0" prefWidth="1000.0">
-    <VBox>
-        <MenuBar>
-            <Menu text="设置">
-            </Menu>
-            <Menu text="KHash">
-                <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
-                <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
-                <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
-                <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
-                <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
-            </Menu>
-            <Menu text="数据源">
+<?import org.kordamp.bootstrapfx.scene.layout.Panel?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.jxch.capital.client.fx.view.MainView"
+      prefHeight="800.0" prefWidth="1000.0">
+    <MenuBar>
+        <Menu text="设置">
+            <MenuItem mnemonicParsing="false" text="环境依赖" onAction="#envSettings"/>
+        </Menu>
+        <Menu text="KHash">
+            <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+            <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+            <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+            <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+            <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+        </Menu>
+        <Menu text="数据源">
 
-            </Menu>
-            <Menu text="特征工程">
+        </Menu>
+        <Menu text="特征工程">
 
-            </Menu>
-            <Menu text="LLM">
-                <MenuItem mnemonicParsing="false" text="知识库管理"/>
-            </Menu>
-            <Menu text="模型">
+        </Menu>
+        <Menu text="LLM">
+            <MenuItem mnemonicParsing="false" text="知识库管理"/>
+        </Menu>
+        <Menu text="模型">
 
-            </Menu>
-            <Menu text="订阅">
+        </Menu>
+        <Menu text="订阅">
 
-            </Menu>
-            <Menu text="看板">
-
-            </Menu>
-        </MenuBar>
-    </VBox>
-</AnchorPane>
+        </Menu>
+        <Menu text="看板">
+            <MenuItem mnemonicParsing="false" text="系统日志" onAction="#systemLog"/>
+        </Menu>
+    </MenuBar>
+    <StackPane fx:id="stackPane"/>
+</VBox>

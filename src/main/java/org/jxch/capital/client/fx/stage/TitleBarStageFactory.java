@@ -1,5 +1,6 @@
 package org.jxch.capital.client.fx.stage;
 
+import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -10,15 +11,23 @@ import org.jxch.capital.client.fx.component.TitleBar;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
-public class TitleBarStage implements FactoryBean<Stage> {
+public class TitleBarStageFactory implements FactoryBean<Stage> {
 
     @Override
     public Stage getObject() {
         return init(new Stage());
     }
 
-    public Stage init(@NonNull Stage stage) {
+    public static Stage createBean(Scene scene) {
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        return init(stage);
+    }
+
+    public static Stage init(@NonNull Stage stage) {
         stage.initStyle(StageStyle.UNDECORATED);
         FXBindingBean<TitleBar> fxBindingBean = FXBeanUtil.getFXBindingBean(TitleBar.class);
         fxBindingBean.getController().setStage(stage);
@@ -26,8 +35,10 @@ public class TitleBarStage implements FactoryBean<Stage> {
 
         VBox root = new VBox();
         root.getChildren().add(fxBindingBean.getParent());
-        root.getChildren().add(stage.getScene().getRoot());
-        stage.getScene().setRoot(root);
+        if (Objects.nonNull(stage.getScene())) {
+            root.getChildren().add(stage.getScene().getRoot());
+            stage.getScene().setRoot(root);
+        }
 
         return stage;
     }

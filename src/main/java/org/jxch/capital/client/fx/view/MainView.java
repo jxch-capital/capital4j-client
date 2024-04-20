@@ -3,7 +3,7 @@ package org.jxch.capital.client.fx.view;
 import jakarta.annotation.Resource;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.StackPane;
-import org.jxch.capital.client.fx.FXBeanUtil;
+import org.jxch.capital.client.fx.register.FXBeanUtil;
 import org.jxch.capital.client.fx.stage.LogStage;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;

@@ -1,4 +1,4 @@
-package org.jxch.capital.client.fx;
+package org.jxch.capital.client.fx.register;
 
 import cn.hutool.core.io.FileUtil;
 import javafx.fxml.FXMLLoader;

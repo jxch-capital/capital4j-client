@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import org.jxch.capital.client.exception.GlobalExceptionHandler;
-import org.jxch.capital.client.fx.FXBeanUtil;
+import org.jxch.capital.client.fx.register.FXBeanUtil;
 import org.jxch.capital.client.fx.scene.MainScene;
 import org.jxch.capital.client.fx.stage.TitleBarStageFactory;
 import org.springframework.boot.SpringApplication;

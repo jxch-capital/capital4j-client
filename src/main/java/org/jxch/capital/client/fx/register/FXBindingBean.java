@@ -1,4 +1,4 @@
-package org.jxch.capital.client.fx;
+package org.jxch.capital.client.fx.register;
 
 import javafx.scene.Parent;
 import lombok.*;

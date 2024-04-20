@@ -19,8 +19,8 @@
 
         <Label GridPane.rowIndex="1" GridPane.columnIndex="0" text="Python 解释器"/>
         <Text GridPane.rowIndex="1" GridPane.columnIndex="1" disable="true" fx:id="pythonVersion"/>
-        <Button GridPane.rowIndex="1" GridPane.columnIndex="2" text="下载" onAction="#downloadPython"/>
         <Button GridPane.rowIndex="1" GridPane.columnIndex="3" text="刷新" onAction="#refreshInfo"/>
+        <Button GridPane.rowIndex="1" GridPane.columnIndex="2" text="下载" onAction="#downloadPython"/>
         <Button GridPane.rowIndex="1" GridPane.columnIndex="4" text="初始化" onAction="#initPythonEnv"/>
     </GridPane>
 

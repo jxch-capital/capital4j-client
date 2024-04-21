@@ -35,6 +35,7 @@ public class EnvSettingsView implements Initializable {
         String osArch = System.getProperty("os.arch").toLowerCase();
         systemInfo.setText(String.format("%s %s", osName, osArch));
 
+        appConfig.init();
         if (Objects.nonNull(appConfig.getPythonExecutorPath())) {
             pythonVersion.setText(appConfig.getPythonExecutorPath());
         } else {
@@ -52,7 +53,7 @@ public class EnvSettingsView implements Initializable {
 
     public void initPythonEnv() {
         pythonExecutor.initPythonEnv();
-        publisher.publishEvent(new OperationalEvent("Python环境初始化成功"));
+        publisher.publishEvent(new OperationalEvent("Python环境初始化完毕"));
     }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -36,6 +37,14 @@ public class AppConfig {
 
     public String getPythonExecutorAppScriptsAbsolutePath() {
         return getPythonExecutorFile().toPath().getParent().resolve("app-scripts").toAbsolutePath().toString();
+    }
+
+    public Path getPythonExecutorScriptsPath() {
+        return getPythonExecutorFile().toPath().getParent().resolve("Scripts");
+    }
+
+    public File getPythonExecutorPipFile() {
+        return getPythonExecutorScriptsPath().resolve("pip").toFile();
     }
 
     @PostConstruct

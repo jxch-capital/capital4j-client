@@ -39,4 +39,8 @@ public class MainView {
 
     }
 
+    public void filterTemplate(ActionEvent actionEvent) {
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(FilterTemplateView.class).getParent());
+    }
 }

@@ -12,6 +12,7 @@ import org.jxch.capital.client.config.AppConfig;
 import org.jxch.capital.client.exception.OperationalException;
 import org.jxch.capital.client.fx.view.LogView;
 import org.jxch.capital.client.python.executor.PythonExecutor;
+import org.jxch.capital.client.uilt.FileU;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -19,13 +20,12 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -94,7 +94,8 @@ public class PythonExecutorImpl implements PythonExecutor {
 
     private void importSite() {
         String importSite = "import site";
-        File pth = appConfig.getPythonExecutorFile().toPath().getParent().resolve("python312._pth").toFile();
+        File pth = Arrays.stream(Objects.requireNonNull(appConfig.getPythonExecutorFile().toPath().getParent().toFile().listFiles()))
+                .filter(file -> file.getName().startsWith("python") && file.getName().endsWith("._pth")).findFirst().orElseThrow();
         if (FileUtil.readUtf8Lines(pth).stream().noneMatch(line -> Objects.equals(line.trim(), importSite))) {
             FileAppender fileAppender = new FileAppender(pth, 1, true);
             fileAppender.append("\n" + importSite);
@@ -123,6 +124,38 @@ public class PythonExecutorImpl implements PythonExecutor {
     private void pipInstalls() {
         run(List.of("-m", "pip", "install", "baostock", "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"));
         run(List.of("-m", "pip", "install", "mplfinance", "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"));
+        pipInstallJsonPath();
+        run(List.of("-m", "pip", "install", "akshare", "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"));
+    }
+
+    private void pipInstallJsonPath() {
+        File jsonpathFile = FileU.downloadFile2tmp("http://www.ultimate.com/phil/python/download/jsonpath-0.82.tar.gz");
+        Path jsonpathPath = FileU.unTarGz2tmp(jsonpathFile).toPath().resolve("jsonpath-0.82");
+        File setupPy = jsonpathPath.resolve("setup.py").toFile();
+
+        List<String> lines = FileUtil.readUtf8Lines(setupPy);
+        String content = lines.stream().map(line -> {
+            if (Objects.equals(line.trim(), "import jsonpath as module")) {
+                return "#import jsonpath as module";
+            }
+            if (Objects.equals(line.trim(), "name = module.__name__")) {
+                return "name = \"jsonpath\"";
+            }
+            if (Objects.equals(line.trim(), "version = module.__version__")) {
+                return "version = \"0.82\"";
+            }
+            if (Objects.equals(line.trim(), "lines = module.__doc__.split(\"\\n\")")) {
+                return String.format("""
+                        doc =  \"\"\"\n
+                        %s
+                        \n\"\"\"
+                        lines = doc.split("\\n")
+                        """, String.join("\n", FileUtil.readUtf8Lines(jsonpathPath.resolve("PKG-INFO").toFile())));
+            }
+            return line;
+        }).collect(Collectors.joining("\n"));
+        FileUtil.writeString(content, setupPy, Charset.defaultCharset());
+        runProcess(new ProcessBuilder(appConfig.getPythonExecutorPipFile().getAbsolutePath(), "install", jsonpathPath.toFile().getAbsolutePath(), "--user"));
     }
 
 }

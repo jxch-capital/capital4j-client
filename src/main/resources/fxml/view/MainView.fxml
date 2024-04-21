@@ -20,8 +20,14 @@
         <Menu text="Dashboard">
             <MenuItem mnemonicParsing="false" text="模板" onAction="#template"/>
         </Menu>
+        <Menu text="过滤器">
+            <MenuItem mnemonicParsing="false" text="过滤模板" onAction="#filterTemplate"/>
+        </Menu>
         <Menu text="监视器">
             <MenuItem mnemonicParsing="false" text="监视模组" onAction="#watcherTemplate"/>
+        </Menu>
+        <Menu text="订阅器">
+
         </Menu>
         <Menu text="KHash">
             <MenuItem mnemonicParsing="false" text="构建Hash索引"/>

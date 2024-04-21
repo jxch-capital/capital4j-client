@@ -4,7 +4,7 @@ import pandas as pd
 import mplfinance as mpf
 import argparse
 
-parser = argparse.ArgumentParser(description='akshare: ak_unemployment [失业率]')
+parser = argparse.ArgumentParser(description='akshare: ak_exports_yearly [出口]')
 parser.add_argument('--output_file', '-o', type=str, required=True, help="输出图片文件的绝对路径")
 args = parser.parse_args()
 output_file = args.output_file

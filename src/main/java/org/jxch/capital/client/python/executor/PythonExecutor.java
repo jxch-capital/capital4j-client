@@ -3,6 +3,7 @@ package org.jxch.capital.client.python.executor;
 import cn.hutool.extra.spring.SpringUtil;
 import lombok.NonNull;
 import org.jxch.capital.client.python.register.PyBindRunnerParamProcessor;
+import org.jxch.capital.client.uilt.FileU;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,6 +41,11 @@ public interface PythonExecutor {
         List<String> commandArr = new ArrayList<>(SpringUtil.getBean(PyBindRunnerParamProcessor.class).encode(param));
         commandArr.add(0, pythonFile.getAbsolutePath());
         return run(commandArr);
+    }
+
+    default String runCode(String code, List<String> command) {
+        File tmpPy = FileU.writeString2tmpFile(code, ".py");
+        return run(tmpPy, command);
     }
 
 }

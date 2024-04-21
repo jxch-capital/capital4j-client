@@ -1,6 +1,8 @@
 package org.jxch.capital.client.python.executor;
 
+import cn.hutool.extra.spring.SpringUtil;
 import lombok.NonNull;
+import org.jxch.capital.client.python.register.PyBindRunnerParamProcessor;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,6 +16,10 @@ public interface PythonExecutor {
 
     String run(List<String> command);
 
+    default <P> String run(P param) {
+        return run(SpringUtil.getBean(PyBindRunnerParamProcessor.class).encode(param));
+    }
+
     default String run(@NonNull File pythonFile, List<String> command) {
         List<String> commandArr = new ArrayList<>(command);
         commandArr.add(0, pythonFile.getAbsolutePath());
@@ -26,6 +32,12 @@ public interface PythonExecutor {
 
     default String run(@NonNull File pythonFile, String... command) {
         List<String> commandArr = new ArrayList<>(List.of(command));
+        commandArr.add(0, pythonFile.getAbsolutePath());
+        return run(commandArr);
+    }
+
+    default <P> String run(@NonNull File pythonFile, P param) {
+        List<String> commandArr = new ArrayList<>(SpringUtil.getBean(PyBindRunnerParamProcessor.class).encode(param));
         commandArr.add(0, pythonFile.getAbsolutePath());
         return run(commandArr);
     }

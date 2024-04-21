@@ -1,5 +1,6 @@
 package org.jxch.capital.client.python.dto;
 
+import cn.hutool.core.date.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class BSQueryKParam {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date endDate;
+    private Date endDate = DateUtil.date();
     private String frequency;
     @Builder.Default
     private String adjustflag = "2";

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Region?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.jxch.capital.client.fx.view.ChartTemplateView">
+    <VBox>
+        <HBox>
+            <ComboBox fx:id="templateServiceBox"/>
+            <ComboBox fx:id="templateConfigsBox"/>
+        </HBox>
+        <TextArea fx:id="dataParamTemplate" maxWidth="300" minHeight="300"/>
+        <TextArea fx:id="chartParamTemplate" maxWidth="300" minHeight="700"/>
+        <TextField fx:id="configName" maxWidth="300"/>
+        <HBox>
+            <Button text="删除" onAction="#del"/>
+            <Button text="添加" onAction="#add"/>
+            <Button text="保存" onAction="#save"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="绘制" onAction="#plot"/>
+        </HBox>
+    </VBox>
+    <StackPane fx:id="board" minWidth="1300"/>
+</HBox>

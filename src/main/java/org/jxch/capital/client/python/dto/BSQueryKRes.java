@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Data
 @Builder
@@ -28,4 +29,8 @@ public class BSQueryKRes {
     private Double amount;
     private String turn;
     private String pctChg;
+
+    public Date getDateTime() {
+        return Objects.nonNull(time) ? time : date;
+    }
 }

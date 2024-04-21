@@ -11,6 +11,7 @@ import org.jxch.capital.client.python.dto.BSQueryKParam;
 import org.jxch.capital.client.python.dto.BSQueryKRes;
 import org.jxch.capital.client.python.service.BSQueryKService;
 import org.jxch.capital.client.stock.dto.KLine;
+import org.jxch.capital.client.stock.dto.StockQueryParam;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,13 @@ public class BSQueryKServiceImpl implements BSQueryKService {
         } finally {
             FileUtil.del(param.getCsvFile());
         }
+    }
+
+    @Override
+    public String downloadKLine(StockQueryParam stockQueryParam) {
+        BSQueryKParam param = BSQueryKMapper.toBSQueryKParam(stockQueryParam);
+        bsQueryK2CSV.run(param);
+        return param.getCsvFile();
     }
 
     @Override

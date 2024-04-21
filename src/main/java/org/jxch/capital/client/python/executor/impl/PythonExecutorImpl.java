@@ -122,6 +122,7 @@ public class PythonExecutorImpl implements PythonExecutor {
 
     private void pipInstalls() {
         run(List.of("-m", "pip", "install", "baostock", "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"));
+        run(List.of("-m", "pip", "install", "mplfinance", "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"));
     }
 
 }

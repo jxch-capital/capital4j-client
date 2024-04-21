@@ -17,8 +17,4 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
   application:
     name: Capital4J-Client
-  cache:
-    type: caffeine
-    caffeine:
-      spec: maximumSize=5000,expireAfterAccess=600s
 

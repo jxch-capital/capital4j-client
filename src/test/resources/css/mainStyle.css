@@ -1,0 +1,55 @@
+
+.root {
+    -fx-background-color: #333;
+    -fx-text-fill: #ccc;
+}
+
+.button, .menu-button {
+    -fx-background-color: #555;
+    -fx-text-fill: #eee;
+}
+
+.button:focused, .menu-button:focused {
+    -fx-background-color: #444;
+    -fx-text-fill: black;
+}
+
+.label {
+    -fx-text-fill: #ccc;
+}
+
+.menu-bar {
+    -fx-background-color: #444;
+}
+
+.showing {
+    -fx-background-color: #444;
+}
+
+.context-menu {
+    -fx-background-color: #444;
+}
+
+.menu-item:focused {
+    -fx-background-color: rgba(76, 94, 100, 0.96);
+}
+
+.menu-item {
+    -fx-background-color: #444;
+    -fx-text-fill: #eee;
+}
+
+.title-bar {
+    -fx-background-color: rgba(0,0,0,0.68);
+    -fx-text-fill: rgba(255,255,255,0.6);
+    -fx-padding: 10;
+}
+
+.title-bar-button {
+}
+
+.title-bar-button:focused {
+    -fx-background-color: #444;
+    -fx-text-fill: black;
+}
+

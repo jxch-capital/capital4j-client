@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.jxch.capital.client.fx.view.ChartTemplateView">
+    <VBox>
+        <HBox>
+            <ComboBox fx:id="templateServiceBox"/>
+            <ComboBox fx:id="templateConfigsBox"/>
+            <Button text="绘制" onAction="#plot"/>
+        </HBox>
+        <TextArea fx:id="dataParamTemplate"/>
+        <TextArea fx:id="chartParamTemplate"/>
+        <HBox>
+            <TextField fx:id="configName"/>
+            <Button text="保存" onAction="#save"/>
+            <Button text="删除" onAction="#del"/>
+        </HBox>
+    </VBox>
+    <StackPane fx:id="board"/>
+</HBox>

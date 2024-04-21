@@ -7,6 +7,7 @@ import org.jxch.capital.client.python.service.BSQueryKService;
 import org.jxch.capital.client.stock.StockService;
 import org.jxch.capital.client.stock.dto.KLine;
 import org.jxch.capital.client.stock.dto.StockQueryParam;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class BSQueryKStockServiceImpl implements StockService {
     private final BSQueryKMapper bsQueryKMapper;
 
     @Override
+    @Cacheable(value = "BSQueryKStockServiceImpl_query_StockQueryParam", key = "#param.toString()", unless = "#result == null")
     public List<KLine> query(StockQueryParam param) {
         return bsQueryKService.queryKLine2Convert(bsQueryKMapper.toBSQueryKParam(param));
     }

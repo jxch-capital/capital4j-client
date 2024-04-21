@@ -8,6 +8,7 @@ import org.jxch.capital.client.stock.dto.KLine;
 import org.jxch.capital.client.stock.dto.StockQueryParam;
 import org.jxch.capital.client.uilt.FileU;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Mapper(componentModel = "spring")
 public interface BSQueryKMapper {
 
+    @Mapping(target = "date", expression = "java(bsQueryKRes.getDateTime())")
     KLine toKLine(BSQueryKRes bsQueryKRes);
 
     List<KLine> toKLine(List<BSQueryKRes> bsQueryKRes);

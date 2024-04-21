@@ -14,6 +14,11 @@
     -fx-text-fill: black;
 }
 
+.button:hover {
+    -fx-background-color: rgba(76, 94, 100, 0.96);
+    -fx-text-fill: black;
+}
+
 .label {
     -fx-text-fill: #ccc;
 }
@@ -40,8 +45,8 @@
 }
 
 .title-bar {
-    -fx-background-color: rgba(0,0,0,0.68);
-    -fx-text-fill: rgba(255,255,255,0.6);
+    -fx-background-color: rgba(0, 0, 0, 0.68);
+    -fx-text-fill: rgba(255, 255, 255, 0.6);
     -fx-padding: 10;
 }
 
@@ -53,3 +58,35 @@
     -fx-text-fill: black;
 }
 
+.text-field, .text-area, .combo-box {
+    -fx-control-inner-background: #444;
+    -fx-text-fill: #ccc;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #ccc;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #444;
+    -fx-text-fill: #ccc;
+}
+
+.combo-box .arrow,
+.combo-box-base .arrow-button .arrow {
+    -fx-background-color: #444;
+}
+
+.combo-box .arrow,
+.combo-box-base .arrow-button .arrow {
+    -fx-shape: "M0 0h10l-5 5z";
+    -fx-background-color: #444;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: rgba(76, 94, 100, 0.96);
+}
+
+.web-view {
+    -fx-background-color: #444;
+}

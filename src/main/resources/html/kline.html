@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KLine</title>
+    <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/stocktools/gui.css">
+    <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/annotations/popup.css">
+
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+
+    <script src="https://code.highcharts.com/stock/indicators/indicators-all.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
+
+    <script src="https://code.highcharts.com/modules/annotations-advanced.js"></script>
+    <script src="https://code.highcharts.com/modules/price-indicator.js"></script>
+    <script src="https://code.highcharts.com/modules/full-screen.js"></script>
+
+    <script src="https://code.highcharts.com/modules/stock-tools.js"></script>
+
+    <script src="https://code.highcharts.com/stock/modules/heikinashi.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/hollowcandlestick.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <style>
+        body {
+            background-color: #333333;
+        }
+    </style>
+</head>
+<body>
+<div id="container" style="height: 400px; min-width: 310px"></div>
+<script>
+
+    Highcharts.setOptions({
+        chart: {
+            backgroundColor: 'rgba(0,0,0,0.9)', // 图表背景色
+            style: {
+                color: '#666', // 图表文字颜色
+            }
+        },
+        tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            style: {
+                color: '#F0F0F0'
+            },
+            borderColor: '#606063'
+        },
+        navigation: {
+            buttonOptions: {
+                symbolStroke: '#DDDDDD',
+                theme: {
+                    fill: '#505050'
+                }
+            }
+        },
+        exporting: {
+            buttons: {
+                contextButton: {
+                    symbolStroke: '#DDDDDD',
+                    theme: {
+                        fill: '#505050'
+                    }
+                }
+            }
+        },
+        colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'], // 定义系列颜色
+        yAxis: {
+            gridLineColor: '#333', // Y轴网格线颜色
+            labels: {
+                style: {
+                    color: '#AAA' // Y轴标签颜色
+                }
+            },
+            lineColor: '#A0A0A0', // Y轴颜色
+            minorGridLineColor: '#505053', // Y轴次级网格线颜色
+            tickColor: '#A0A0A0', // Y轴刻度线颜色
+            title: {
+                style: {
+                    color: '#A0A0A3' // Y轴标题颜色
+                }
+            }
+        },
+        xAxis: {
+            gridLineColor: '#333', // X轴网格线颜色
+            labels: {
+                style: {
+                    color: '#AAA' // X轴标签颜色
+                }
+            },
+            lineColor: '#A0A0A0', // X轴颜色
+            minorGridLineColor: '#505053', // X轴次级网格线颜色
+            tickColor: '#A0A0A0', // X轴刻度线颜色
+            title: {
+                style: {
+                    color: '#A0A0A3' // X轴标题颜色
+                }
+            }
+        }
+    });
+
+    function init(json) {
+        var data = JSON.parse(json)
+        Highcharts.stockChart('container', {
+            series: [{
+                id: 'main',
+                type: 'candlestick',
+                color: '#FF6F6F',
+                lineColor: '#FF6F6F',
+                upColor: '#6FB76F',
+                lineUpColor: '#6FB76F',
+                data,
+                dataGrouping: {
+                    enabled: false
+                }
+            }]
+        });
+    }
+
+</script>
+
+
+</body>
+</html>

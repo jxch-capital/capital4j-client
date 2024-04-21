@@ -2,9 +2,11 @@ package org.jxch.capital.client.config;
 
 import cn.hutool.core.io.FileUtil;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
@@ -13,6 +15,7 @@ import java.util.Objects;
 
 @Data
 @Slf4j
+@EnableCaching
 @Configuration
 @ConfigurationProperties(prefix = "app")
 public class AppConfig {
@@ -53,6 +56,11 @@ public class AppConfig {
         if (!new File(getTmpPath()).exists()) {
             FileUtil.mkdir(getTmpPath());
         }
+    }
+
+    @PreDestroy
+    public void preDestroy(){
+        FileUtil.del(getTmpPath());
     }
 
 }

@@ -25,7 +25,12 @@ public class MainView {
         logStage.show();
     }
 
-    public void echarts(ActionEvent actionEvent) {
+    public void template(ActionEvent actionEvent) {
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(ChartTemplateView.class).getParent());
+    }
+
+    public void dbManagement(ActionEvent actionEvent) {
 
     }
 }

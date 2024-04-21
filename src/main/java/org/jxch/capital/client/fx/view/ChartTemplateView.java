@@ -32,6 +32,7 @@ public class ChartTemplateView implements Initializable {
     public TextField configName;
     public TextArea dataParamTemplate;
     public TextArea chartParamTemplate;
+    private volatile boolean initialized = false;
 
     private ChartTemplateConfigDto currentConfig;
 
@@ -41,35 +42,41 @@ public class ChartTemplateView implements Initializable {
     }
 
     private void refresh() {
+        initialized = false;
         chartTemplates.clear();
         templateServiceBox.getItems().clear();
         templateConfigsBox.getItems().clear();
         chartTemplates = NamedOrderedServices.allServices(ChartTemplate.class);
         templateConfigsBoxInit();
         templateServiceBoxInit();
+        initialized = true;
+        templateServiceBox.getSelectionModel().selectFirst();
     }
 
     private void templateServiceBoxInit() {
         List<String> chartTemplateNames = NamedOrderedServices.allSortedServiceNames(ChartTemplate.class);
         templateServiceBox.getItems().addAll(chartTemplateNames);
         templateServiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            chartParamTemplate.setText(chartTemplates.get(templateServiceBox.getSelectionModel().getSelectedItem()).chartParamTemplate());
-            dataParamTemplate.setText(chartTemplates.get(templateServiceBox.getSelectionModel().getSelectedItem()).dataParamTemplate());
-            List<String> configNames = chartTemplateConfigService.findByTemplateName(newValue).stream().map(ChartTemplateConfigDto::getConfigName).toList();
-            templateConfigsBox.getItems().clear();
-            templateConfigsBox.getItems().addAll(configNames);
-            templateConfigsBox.getSelectionModel().selectFirst();
+            if (initialized) {
+                chartParamTemplate.setText(chartTemplates.get(templateServiceBox.getSelectionModel().getSelectedItem()).chartParamTemplate());
+                dataParamTemplate.setText(chartTemplates.get(templateServiceBox.getSelectionModel().getSelectedItem()).dataParamTemplate());
+                List<String> configNames = chartTemplateConfigService.findByTemplateName(newValue).stream().map(ChartTemplateConfigDto::getConfigName).toList();
+                templateConfigsBox.getItems().clear();
+                templateConfigsBox.getItems().addAll(configNames);
+                templateConfigsBox.getSelectionModel().selectFirst();
+            }
         });
-        templateServiceBox.getSelectionModel().selectFirst();
     }
 
     private void templateConfigsBoxInit() {
         templateConfigsBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            currentConfig = chartTemplateConfigService.findByConfigName(newValue);
-            if (Objects.nonNull(currentConfig)) {
-                configName.setText(currentConfig.getConfigName());
-                dataParamTemplate.setText(currentConfig.getDataParamTemplate());
-                chartParamTemplate.setText(currentConfig.getChartParamTemplate());
+            if (initialized) {
+                currentConfig = chartTemplateConfigService.findByConfigName(newValue);
+                if (Objects.nonNull(currentConfig)) {
+                    configName.setText(currentConfig.getConfigName());
+                    dataParamTemplate.setText(currentConfig.getDataParamTemplate());
+                    chartParamTemplate.setText(currentConfig.getChartParamTemplate());
+                }
             }
         });
     }

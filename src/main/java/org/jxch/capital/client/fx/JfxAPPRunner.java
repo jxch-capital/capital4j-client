@@ -1,12 +1,12 @@
 package org.jxch.capital.client.fx;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.sun.javafx.webkit.WebConsoleListener;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.jxch.capital.client.event.JfxStartedEvent;
 import org.jxch.capital.client.fx.register.FXBeanUtil;
 import org.jxch.capital.client.fx.scene.MainScene;
 import org.jxch.capital.client.fx.stage.TitleBarStageFactory;
@@ -29,16 +29,14 @@ public class JfxAPPRunner extends Application implements CommandLineRunner, Appl
         TitleBarStageFactory.init(stage);
         FXBeanUtil.registerStageBean(JfxAPPRunner.class, stage);
         stage.show();
+
+        SpringUtil.getApplicationContext().publishEvent(new JfxStartedEvent(stage));
     }
 
     @Override
     public void run(String... args) {
         log.info("启动JAVA FX");
         launch(args);
-
-        WebConsoleListener.setDefaultListener(
-                (webView, message, lineNumber, sourceId) -> log.info("Console: [{}:{}:{}]", sourceId, lineNumber, message)
-        );
     }
 
     @Override

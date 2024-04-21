@@ -1,11 +1,15 @@
 package org.jxch.capital.client.fx.component;
 
+import cn.hutool.extra.spring.SpringUtil;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lombok.NonNull;
 import lombok.Setter;
+import org.jxch.capital.client.fx.register.FXBeanUtil;
+import org.jxch.capital.client.fx.scene.MainScene;
+import org.jxch.capital.client.fx.stage.TitleBarStageFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -56,6 +60,14 @@ public class TitleBar {
     public void onMouseDragged(@NonNull MouseEvent mouseEvent) {
         stage.setX(mouseEvent.getScreenX() + xOffset);
         stage.setY(mouseEvent.getScreenY() + yOffset);
+    }
+
+    public void copyStage(ActionEvent actionEvent) {
+        Stage newStage = new Stage();
+        newStage.setScene(FXBeanUtil.getSceneBean(MainScene.class));
+        newStage.setTitle(SpringUtil.getApplicationName());
+        TitleBarStageFactory.init(newStage);
+        newStage.show();
     }
 
 }

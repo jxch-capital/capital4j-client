@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.jxch.capital.client.fx.view.WatcherTemplateView">
+<HBox>
+    <VBox>
+        <ComboBox fx:id="watcherServiceTemplate" maxWidth="300"/>
+        <ComboBox fx:id="watcherConfigTemplate" maxWidth="300"/>
+        <TextArea fx:id="watcherServiceParam" maxWidth="300"/>
+        <TextArea fx:id="watcherConfigParam" maxWidth="300"/>
+        <HBox>
+            <Button text="删除" onAction="#del"/>
+            <Button text="添加" onAction="#add"/>
+            <Button text="保存" onAction="#save"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="绘制" onAction="#plot"/>
+        </HBox>
+    </VBox>
+    <StackPane />
+</HBox>
+</VBox>

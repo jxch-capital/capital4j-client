@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KLineEChartTemplate implements ChartTemplate {
+public class KLineWebViewChartTemplate implements ChartTemplate {
     private final StockService stockService;
 
     @Override

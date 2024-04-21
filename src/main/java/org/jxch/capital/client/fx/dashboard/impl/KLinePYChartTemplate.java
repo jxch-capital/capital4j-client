@@ -64,14 +64,15 @@ public class KLinePYChartTemplate implements ChartTemplate {
                 output_file = args.output_file
                 
                 def draw_k_line_chart(data, image_path, width=10, height=6, dpi=100):
-                    mpf_style = mpf.make_mpf_style(base_mpf_style='charles', rc={'font.size': 8})
+                    mpf_style = mpf.make_mpf_style(base_mpf_style='nightclouds', base_mpl_style='dark_background',rc={'figure.facecolor': 'black', 'axes.facecolor': 'black'})    
                     fig, ax = mpf.plot(data,type='candle',style=mpf_style,returnfig=True,volume=True,figsize=(width, height))
                     fig.savefig(image_path, dpi=dpi, bbox_inches="tight")
                     print(f"图片已保存至{image_path}")
                 
                 df = pd.read_csv(input_file)
-                df.set_index('Date', inplace=True)
-                draw_k_line_chart(df, output_file, width=10, height=6, dpi=100)
+                df['time'] = pd.to_datetime(df['time'])
+                df.set_index('time', inplace=True)
+                draw_k_line_chart(df, output_file, width=10, height=6, dpi=120)
                 """;
     }
 

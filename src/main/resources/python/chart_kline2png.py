@@ -22,4 +22,4 @@ def draw_k_line_chart(data, image_path, width=10, height=6, dpi=100):
 df = pd.read_csv(input_file)
 df['time'] = pd.to_datetime(df['time'])
 df.set_index('time', inplace=True)
-draw_k_line_chart(df, output_file, width=100, height=60, dpi=200)
+draw_k_line_chart(df, output_file, width=10, height=6, dpi=120)

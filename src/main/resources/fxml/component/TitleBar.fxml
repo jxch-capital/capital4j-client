@@ -11,6 +11,7 @@
 
     <Label fx:id="label"/>
     <Region HBox.hgrow="ALWAYS"/>
+    <Button text="+" onAction="#copyStage" styleClass="title-bar-button"/>
     <Button text="⬆" onAction="#setAlwaysOnTop" styleClass="title-bar-button"/>
     <Button text="-" onAction="#setIconified" styleClass="title-bar-button"/>
     <Button text="+" onAction="#setMaximized" styleClass="title-bar-button"/>

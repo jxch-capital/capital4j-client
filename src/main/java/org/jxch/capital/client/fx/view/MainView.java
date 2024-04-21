@@ -30,7 +30,13 @@ public class MainView {
         stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(ChartTemplateView.class).getParent());
     }
 
+    public void watcherTemplate(ActionEvent actionEvent) {
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(WatcherTemplateView.class).getParent());
+    }
+
     public void dbManagement(ActionEvent actionEvent) {
 
     }
+
 }

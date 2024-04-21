@@ -36,6 +36,15 @@ public class PYPlotChartTemplate implements ChartTemplate {
     @Override
     public String chartParamTemplate() {
         return """
+                import matplotlib.pyplot as plt
+                import pandas as pd
+                import mplfinance as mpf
+                import argparse
+
+                parser = argparse.ArgumentParser(description='akshare: ak_unemployment [失业率]')
+                parser.add_argument('--output_file', '-o', type=str, required=True, help="输出图片文件的绝对路径")
+                args = parser.parse_args()
+                output_file = args.output_file
                 
                 """;
     }

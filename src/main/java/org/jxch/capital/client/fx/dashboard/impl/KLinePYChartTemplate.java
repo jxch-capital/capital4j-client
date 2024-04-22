@@ -1,46 +1,59 @@
 package org.jxch.capital.client.fx.dashboard.impl;
 
 
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.TimedCache;
+import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONWriter;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.jxch.capital.client.event.ChartTemplateCacheClearEvent;
 import org.jxch.capital.client.fx.dashboard.ChartTemplate;
 import org.jxch.capital.client.fx.dto.ChartParam;
+import org.jxch.capital.client.fx.util.NodeU;
 import org.jxch.capital.client.python.executor.PythonExecutor;
 import org.jxch.capital.client.python.service.BSQueryKService;
 import org.jxch.capital.client.stock.dto.StockQueryParam;
 import org.jxch.capital.client.uilt.FileU;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class KLinePYChartTemplate implements ChartTemplate {
+    private final TimedCache<String, String> cache = CacheUtil.newTimedCache(TimeUnit.MINUTES.toMillis(30));
     private final BSQueryKService bsQueryKService;
     private final PythonExecutor pythonExecutor;
 
     @Override
     @SneakyThrows
     public void chart(@NonNull ChartParam chartParam, String dataParam) {
-        String inputFilePath = bsQueryKService.downloadKLine(JSON.parseObject(dataParam, StockQueryParam.class));
-        String outputFilePath = FileU.tmpFilePath(UUID.randomUUID() + ".png");
+        String key = SecureUtil.md5(dataParam + chartParam.getChartParam());
+        String outputFilePath = cache.get(key);
+        if (Objects.isNull(outputFilePath)) {
+            String inputFilePath = bsQueryKService.downloadKLine(JSON.parseObject(dataParam, StockQueryParam.class));
+            outputFilePath = FileU.tmpFilePath(UUID.randomUUID() + ".png");
+            File tmpPy = FileU.writeString2tmpFile(chartParam.getChartParam(), ".py");
+            pythonExecutor.run(tmpPy, List.of("-i", inputFilePath, "-o", outputFilePath));
+            cache.put(key, outputFilePath);
+        }
 
-        File tmpPy = FileU.writeString2tmpFile(chartParam.getChartParam(), ".py");
-        pythonExecutor.run(tmpPy, List.of("-i", inputFilePath, "-o", outputFilePath));
+        NodeU.loadImage(outputFilePath, chartParam.getBoard());
+    }
 
-        ImageView imageView = new ImageView(new Image(new File(outputFilePath).toURI().toURL().toExternalForm()));
-
-        chartParam.getBoard().getChildren().clear();
-        chartParam.getBoard().getChildren().add(imageView);
+    @EventListener
+    public void chartTemplateCacheClearEvent(@NonNull ChartTemplateCacheClearEvent event) {
+        cache.remove(SecureUtil.md5(event.cacheKey().toString()));
     }
 
     @Override

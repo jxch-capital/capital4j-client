@@ -11,8 +11,6 @@ output_file = args.output_file
 
 df = ak.macro_china_national_tax_receipts()
 
-print(df)
-
 df['年份'] = df['季度'].str.extract(r'(\d{4})年').astype(int)
 df['季度标记'] = df['季度'].str.extract(r'第([^季]+季度)').astype(str)
 

@@ -1,5 +1,7 @@
 package org.jxch.capital.client.fx.dashboard.impl;
 
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.TimedCache;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -12,20 +14,30 @@ import org.jxch.capital.client.uilt.FileU;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class PYPlotChartTemplate implements ChartTemplate {
+    private final TimedCache<String, String> cache = CacheUtil.newTimedCache(TimeUnit.DAYS.toMillis(1));
     private final PythonExecutor pythonExecutor;
 
     @Override
     @SneakyThrows
     public void chart(@NonNull ChartParam chartParam, String dataParam) {
-        String outputFilePath = FileU.tmpFilePath(UUID.randomUUID() + ".png");
-        pythonExecutor.runCode(chartParam.getChartParam(), List.of("-o", outputFilePath));
-        NodeU.loadImage(outputFilePath, chartParam.getBoard());
+        String tmpFile = cache.get(chartParam.getChartParam());
+
+        if (Objects.nonNull(tmpFile)) {
+            NodeU.loadImage(tmpFile, chartParam.getBoard());
+        } else {
+            String outputFilePath = FileU.tmpFilePath(UUID.randomUUID() + ".png");
+            pythonExecutor.runCode(chartParam.getChartParam(), List.of("-o", outputFilePath));
+            NodeU.loadImage(outputFilePath, chartParam.getBoard());
+            cache.put(chartParam.getChartParam(), outputFilePath);
+        }
     }
 
     @Override

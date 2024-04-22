@@ -6,11 +6,13 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.jxch.capital.client.event.ChartTemplateCacheClearEvent;
 import org.jxch.capital.client.fx.dashboard.ChartTemplate;
 import org.jxch.capital.client.fx.dto.ChartParam;
 import org.jxch.capital.client.fx.util.NodeU;
 import org.jxch.capital.client.python.executor.PythonExecutor;
 import org.jxch.capital.client.uilt.FileU;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +31,6 @@ public class PYPlotChartTemplate implements ChartTemplate {
     @SneakyThrows
     public void chart(@NonNull ChartParam chartParam, String dataParam) {
         String tmpFile = cache.get(chartParam.getChartParam());
-
         if (Objects.nonNull(tmpFile)) {
             NodeU.loadImage(tmpFile, chartParam.getBoard());
         } else {
@@ -38,6 +39,11 @@ public class PYPlotChartTemplate implements ChartTemplate {
             NodeU.loadImage(outputFilePath, chartParam.getBoard());
             cache.put(chartParam.getChartParam(), outputFilePath);
         }
+    }
+
+    @EventListener
+    public void chartTemplateCacheClearEvent(@NonNull ChartTemplateCacheClearEvent event) {
+        cache.remove(event.cacheKey().toString());
     }
 
     @Override

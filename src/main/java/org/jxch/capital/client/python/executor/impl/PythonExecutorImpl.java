@@ -9,10 +9,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.config.AppConfig;
+import org.jxch.capital.client.event.PyExecutorPrintEvent;
 import org.jxch.capital.client.exception.OperationalException;
-import org.jxch.capital.client.fx.view.LogView;
 import org.jxch.capital.client.python.executor.PythonExecutor;
 import org.jxch.capital.client.uilt.FileU;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -31,8 +32,8 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class PythonExecutorImpl implements PythonExecutor {
+    private final ApplicationEventPublisher publisher;
     private final AppConfig appConfig;
-    private final LogView logView;
 
     @Override
     @SneakyThrows
@@ -82,9 +83,9 @@ public class PythonExecutorImpl implements PythonExecutor {
         try (Scanner in = new Scanner(new BufferedReader(new InputStreamReader(process.getInputStream())))) {
             while (in.hasNextLine()) {
                 String line = in.nextLine();
-                logView.addLine(line);
                 log.info(line);
                 stringBuilder.append(line).append("\n");
+                publisher.publishEvent(new PyExecutorPrintEvent(this).logMsg(line));
             }
             process.waitFor();
         }

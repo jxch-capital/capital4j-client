@@ -7,11 +7,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.db.dto.ChartTemplateConfigDto;
+import org.jxch.capital.client.event.ChartTemplateCacheClearEvent;
 import org.jxch.capital.client.fx.dashboard.ChartTemplate;
 import org.jxch.capital.client.fx.dto.ChartParam;
 import org.jxch.capital.client.service.ChartTemplateConfigService;
 import org.jxch.capital.client.service.NamedOrderedServices;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,8 @@ public class ChartTemplateView implements Initializable {
     public StackPane board;
     @Resource
     private ChartTemplateConfigService chartTemplateConfigService;
+    @Resource
+    private ApplicationEventPublisher publisher;
     private Map<String, ChartTemplate> chartTemplates = new HashMap<>();
 
     public ComboBox<String> templateServiceBox;
@@ -126,4 +130,9 @@ public class ChartTemplateView implements Initializable {
 
         refresh();
     }
+
+    public void cacheClear(ActionEvent actionEvent) {
+        publisher.publishEvent(new ChartTemplateCacheClearEvent(this).cacheKey(chartParamTemplate.getText()));
+    }
+
 }

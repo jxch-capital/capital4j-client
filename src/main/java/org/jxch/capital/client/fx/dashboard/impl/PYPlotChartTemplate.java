@@ -2,6 +2,7 @@ package org.jxch.capital.client.fx.dashboard.impl;
 
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
+import cn.hutool.crypto.SecureUtil;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -30,20 +31,21 @@ public class PYPlotChartTemplate implements ChartTemplate {
     @Override
     @SneakyThrows
     public void chart(@NonNull ChartParam chartParam, String dataParam) {
-        String tmpFile = cache.get(chartParam.getChartParam());
+        String cacheKey = SecureUtil.md5(chartParam.getChartParam());
+        String tmpFile = cache.get(cacheKey);
         if (Objects.nonNull(tmpFile)) {
             NodeU.loadImage(tmpFile, chartParam.getBoard());
         } else {
             String outputFilePath = FileU.tmpFilePath(UUID.randomUUID() + ".png");
             pythonExecutor.runCode(chartParam.getChartParam(), List.of("-o", outputFilePath));
             NodeU.loadImage(outputFilePath, chartParam.getBoard());
-            cache.put(chartParam.getChartParam(), outputFilePath);
+            cache.put(cacheKey, outputFilePath);
         }
     }
 
     @EventListener
     public void chartTemplateCacheClearEvent(@NonNull ChartTemplateCacheClearEvent event) {
-        cache.remove(event.cacheKey().toString());
+        cache.remove(SecureUtil.md5(event.cacheKey().toString()));
     }
 
     @Override

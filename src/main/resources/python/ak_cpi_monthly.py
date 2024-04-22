@@ -32,7 +32,7 @@ for text in legend.get_texts():
     text.set_color("#808080")
 
 # 设置标题和轴标签
-plt.title('中国CPI月率报告', color='808080')
+plt.title('中国CPI月率报告', color='#808080')
 plt.xlabel('日期', color='#808080')
 plt.ylabel('值', color='#808080')
 plt.tick_params(colors='#666')

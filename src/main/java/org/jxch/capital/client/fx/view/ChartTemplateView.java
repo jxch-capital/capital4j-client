@@ -25,6 +25,7 @@ import java.util.*;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ChartTemplateView implements Initializable {
     public StackPane board;
+    public CheckBox autoPlot;
     @Resource
     private ChartTemplateConfigService chartTemplateConfigService;
     @Resource
@@ -80,6 +81,10 @@ public class ChartTemplateView implements Initializable {
                     configName.setText(currentConfig.getConfigName());
                     dataParamTemplate.setText(currentConfig.getDataParamTemplate());
                     chartParamTemplate.setText(currentConfig.getChartParamTemplate());
+
+                    if (autoPlot.isSelected()) {
+                        plot();
+                    }
                 }
             }
         });
@@ -111,7 +116,7 @@ public class ChartTemplateView implements Initializable {
         }
     }
 
-    public void plot(ActionEvent actionEvent) {
+    public void plot() {
         ChartTemplate chartTemplate = chartTemplates.get(templateServiceBox.getSelectionModel().getSelectedItem());
 
         chartTemplate.chart(ChartParam.builder()

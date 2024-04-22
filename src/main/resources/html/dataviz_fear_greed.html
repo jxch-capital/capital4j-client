@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>恐慌指数</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <style>
+        body {
+            background-color: #333333;
+        }
+    </style>
+</head>
+<body>
+
+<figure class="highcharts-figure">
+    <div id="container_1"></div>
+    <div id="container_2"></div>
+    <div id="container_3"></div>
+    <div id="container_4"></div>
+    <div id="container_5"></div>
+    <div id="container_6"></div>
+    <div id="container_7"></div>
+    <div id="container_8"></div>
+    <div id="container_9"></div>
+    <div id="container_10"></div>
+    <div id="container_11"></div>
+</figure>
+
+<script>
+    Highcharts.setOptions({
+        tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            style: {
+                color: '#F0F0F0'
+            },
+            borderColor: '#606063'
+        },
+        exporting: {
+            buttons: {
+                contextButton: {
+                    symbolStroke: '#DDDDDD',
+                    theme: {
+                        fill: '#505050'
+                    }
+                }
+            }
+        },
+    });
+
+    var lineOption = {
+        chart: {
+            zoomType: 'x',
+            backgroundColor: '#333',
+        },
+        title: {
+            text: '',
+            align: 'left',
+            style: {
+                color: '#ccc',
+            }
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: '',
+                style: {
+                    color: '#000',
+                    fontSize: 30
+                }
+            },
+            opposite: true
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+
+        series: [{
+            type: 'area',
+            name: 'rating',
+            data: []
+        }]
+    }
+
+    function drawLine(container, data, index) {
+        var index_data = data[index]['data'];
+        var index_data_his = index_data.map(item => [item['x'], item['y']]);
+        var index_rating = index_data[index_data.length - 1]['rating'];
+        var line2 = Object.assign({}, lineOption);
+        line2.yAxis.title.style.color = index_rating.includes('fear') ? 'red' : (index_rating.includes('greed') ? 'green' : 'orange')
+        line2.yAxis.title.text = index_rating.toUpperCase()
+        line2.series[0].data = index_data_his;
+        line2.title.text = index.toUpperCase();
+        Highcharts.chart(container, line2);
+    }
+
+    function init(json) {
+        var data = JSON.parse(json)
+        var fear_and_greed_score = data['fear_and_greed']['score'];
+        Highcharts.chart('container_1', {
+
+            chart: {
+                type: 'gauge',
+                plotBackgroundColor: null,
+                plotBackgroundImage: null,
+                backgroundColor: '#333',
+                plotBorderWidth: 0,
+                plotShadow: false,
+                height: '80%',
+                style: {
+                    color: '#ccc',
+                }
+            },
+
+            title: {
+                text: 'FearAndGreed'
+            },
+
+            pane: {
+                startAngle: -90,
+                endAngle: 89.9,
+                background: null,
+                center: ['50%', '75%'],
+                size: '110%'
+            },
+
+            // the value axis
+            yAxis: {
+                min: 0,
+                max: 100,
+                tickPixelInterval: 72,
+                tickPosition: 'inside',
+                tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#ccc',
+                tickLength: 20,
+                tickWidth: 2,
+                minorTickInterval: null,
+                labels: {
+                    distance: 20,
+                    style: {
+                        fontSize: '14px',
+                        color: '#ccc'
+                    }
+                },
+                lineWidth: 0,
+                plotBands: [{
+                    from: 0,
+                    to: 30,
+                    color: '#DF5353',
+                    thickness: 20
+                }, {
+                    from: 30,
+                    to: 70,
+                    color: '#DDDF0D', // yellow
+                    thickness: 20
+                }, {
+                    from: 70,
+                    to: 100,
+                    color: '#55BF3B',
+                    thickness: 20
+                }],
+            },
+
+            series: [{
+                name: '恐慌指数',
+                data: [80],
+                tooltip: {
+                    valueSuffix: ''
+                },
+                dataLabels: {
+                    format: '{y}',
+                    borderWidth: 0,
+                    color: (
+                        Highcharts.defaultOptions.title &&
+                        Highcharts.defaultOptions.title.style &&
+                        Highcharts.defaultOptions.title.style.color
+                    ) || '#ccc',
+                    style: {
+                        fontSize: '16px'
+                    }
+                },
+                dial: {
+                    radius: '80%',
+                    backgroundColor: '#ccc',
+                    baseWidth: 12,
+                    baseLength: '0%',
+                    rearLength: '0%'
+                },
+                pivot: {
+                    backgroundColor: '#ccc',
+                    radius: 6
+                }
+
+            }]
+
+        });
+        Highcharts.charts[0].series[0].points[0].update(fear_and_greed_score);
+
+        drawLine('container_2', data, 'fear_and_greed_historical')
+        drawLine('container_3', data, 'market_momentum_sp500')
+        drawLine('container_4', data, 'market_momentum_sp125')
+        drawLine('container_5', data, 'stock_price_strength')
+        drawLine('container_6', data, 'stock_price_breadth')
+        drawLine('container_7', data, 'put_call_options')
+        drawLine('container_8', data, 'market_volatility_vix')
+        drawLine('container_9', data, 'market_volatility_vix_50')
+        drawLine('container_10', data, 'junk_bond_demand')
+        drawLine('container_11', data, 'safe_haven_demand')
+
+    }
+</script>
+</body>
+</html>

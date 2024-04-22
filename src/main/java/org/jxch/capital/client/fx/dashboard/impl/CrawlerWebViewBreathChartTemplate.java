@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CrawlerWebViewChartTemplate implements ChartTemplate {
+public class CrawlerWebViewBreathChartTemplate implements ChartTemplate {
     private final TimedCache<String, WebView> cache = CacheUtil.newTimedCache(TimeUnit.HOURS.toMillis(4));
     private final BreathCrawler breathCrawler;
 
@@ -67,7 +67,7 @@ public class CrawlerWebViewChartTemplate implements ChartTemplate {
 
     @Override
     public String getName() {
-        return "Webview-Crawler";
+        return "Webview-Crawler-Breath";
     }
 
 }

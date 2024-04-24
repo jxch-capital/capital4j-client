@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class PythonExecutorImpl implements PythonExecutor {
+public class LocalPythonExecutorImpl implements PythonExecutor {
     private final ApplicationEventPublisher publisher;
     private final AppConfig appConfig;
 

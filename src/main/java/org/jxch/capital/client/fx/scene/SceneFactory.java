@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.config.JFXConfig;
+import org.jxch.capital.client.fx.util.FXBeanUtil;
 import org.kordamp.bootstrapfx.BootstrapFX;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +21,16 @@ import java.util.Arrays;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class StyleSceneFactory {
-    private final ResourcePatternResolver resourcePatternResolver;
+public class SceneFactory {
+    private final ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
     private final JFXConfig jfxConfig;
 
     public Scene createScene(Parent parent) {
         return init(new Scene(parent));
+    }
+
+    public Scene createScene(Class<?> viewClass) {
+        return init(new Scene(FXBeanUtil.getFXBindingBean(viewClass).getParent()));
     }
 
     @SneakyThrows

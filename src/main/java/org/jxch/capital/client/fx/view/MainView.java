@@ -1,19 +1,19 @@
 package org.jxch.capital.client.fx.view;
 
-import jakarta.annotation.Resource;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.StackPane;
-import org.jxch.capital.client.fx.register.FXBeanUtil;
-import org.jxch.capital.client.fx.stage.LogStage;
+import lombok.RequiredArgsConstructor;
+import org.jxch.capital.client.fx.util.FXBeanUtil;
+import org.jxch.capital.client.fx.stage.StageFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@RequiredArgsConstructor
 public class MainView {
-    @Resource
-    private LogStage logStage;
+    private final StageFactory stageFactory;
     public StackPane stackPane;
 
     public void envSettings(ActionEvent actionEvent) {
@@ -22,7 +22,7 @@ public class MainView {
     }
 
     public void systemLog(ActionEvent actionEvent) {
-        logStage.show();
+        stageFactory.show(LogView.class, "系统日志");
     }
 
     public void template(ActionEvent actionEvent) {

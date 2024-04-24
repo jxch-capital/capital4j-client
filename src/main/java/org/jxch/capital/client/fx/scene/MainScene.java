@@ -3,7 +3,7 @@ package org.jxch.capital.client.fx.scene;
 import javafx.scene.Scene;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jxch.capital.client.fx.register.FXBeanUtil;
+import org.jxch.capital.client.fx.util.FXBeanUtil;
 import org.jxch.capital.client.fx.view.MainView;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class MainScene implements FactoryBean<Scene> {
-    private final StyleSceneFactory styleSceneFactory;
+    private final SceneFactory sceneFactory;
 
     @Override
     public Scene getObject() {
-        return styleSceneFactory.createScene(FXBeanUtil.getFXBindingBean(MainView.class).getParent());
+        return sceneFactory.createScene(FXBeanUtil.getFXBindingBean(MainView.class).getParent());
     }
 
     @Override

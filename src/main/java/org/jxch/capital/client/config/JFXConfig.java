@@ -13,4 +13,6 @@ public class JFXConfig {
     private String cssScan;
     @Value("${spring.fx.py-scan:/**/*.py}")
     private String pyScan;
+
+
 }

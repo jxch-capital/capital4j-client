@@ -1,6 +1,7 @@
 package org.jxch.capital.client.crawler.dataviz;
 
 import com.alibaba.fastjson2.JSONObject;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
@@ -14,8 +15,9 @@ import java.util.Objects;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class DatavizGraphDataCrawler {
-    private final OkHttpClient client = new OkHttpClient.Builder().build();
+    private final OkHttpClient okHttpClient;
     private final Request request = new Request.Builder()
             .url("https://production.dataviz.cnn.io/index/fearandgreed/graphdata")
             .addHeader("sec-ch-ua", "\"Google Chrome\";v=\"123\", \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"123\"")
@@ -35,10 +37,11 @@ public class DatavizGraphDataCrawler {
     @SneakyThrows
     @Cacheable(value = "DatavizGraphDataCrawler_graphData", unless = "#result == null")
     public DatavizGraph graphData() {
-        try (Response response = client.newCall(request).execute()) {
+        try (Response response = okHttpClient.newCall(request).execute()) {
             String jsonString = Objects.requireNonNull(response.body()).string();
             return JSONObject.parseObject(jsonString, DatavizGraph.class);
         }
     }
+
 
 }

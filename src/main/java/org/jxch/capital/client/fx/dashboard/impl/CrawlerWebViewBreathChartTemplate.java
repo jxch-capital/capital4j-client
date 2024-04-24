@@ -6,12 +6,15 @@ import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONWriter;
 import javafx.scene.web.WebView;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.crawler.breath.BreathCrawler;
 import org.jxch.capital.client.crawler.dto.BreathParam;
+import org.jxch.capital.client.event.ChartTemplateCacheClearEvent;
 import org.jxch.capital.client.fx.dashboard.ChartTemplate;
 import org.jxch.capital.client.fx.dto.ChartParam;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -39,6 +42,11 @@ public class CrawlerWebViewBreathChartTemplate implements ChartTemplate {
         }
         chartParam.getBoard().getChildren().clear();
         chartParam.getBoard().getChildren().add(webView);
+    }
+
+    @EventListener
+    public void chartTemplateCacheClearEvent(@NonNull ChartTemplateCacheClearEvent event) {
+        cache.remove(SecureUtil.md5(event.cacheKey().toString()));
     }
 
     @Override

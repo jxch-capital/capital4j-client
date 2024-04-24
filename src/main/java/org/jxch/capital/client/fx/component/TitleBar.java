@@ -7,7 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lombok.NonNull;
 import lombok.Setter;
-import org.jxch.capital.client.fx.register.FXBeanUtil;
+import org.jxch.capital.client.fx.util.FXBeanUtil;
 import org.jxch.capital.client.fx.scene.MainScene;
 import org.jxch.capital.client.fx.stage.TitleBarStageFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;

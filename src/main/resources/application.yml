@@ -21,3 +21,6 @@ spring:
     type: caffeine
     caffeine:
       spec: maximumSize=5000,expireAfterAccess=600s
+
+server:
+  port: 18080

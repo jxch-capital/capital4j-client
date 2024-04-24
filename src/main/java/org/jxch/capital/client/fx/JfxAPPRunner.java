@@ -7,9 +7,9 @@ import javafx.stage.Stage;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.event.JfxStartedEvent;
-import org.jxch.capital.client.fx.register.FXBeanUtil;
+import org.jxch.capital.client.fx.os.FX2OS;
+import org.jxch.capital.client.fx.util.FXBeanUtil;
 import org.jxch.capital.client.fx.scene.MainScene;
-import org.jxch.capital.client.fx.stage.TitleBarStageFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -26,11 +26,10 @@ public class JfxAPPRunner extends Application implements CommandLineRunner, Appl
     public void start(@NonNull Stage stage) {
         stage.setScene(FXBeanUtil.getSceneBean(MainScene.class));
         stage.setTitle(SpringUtil.getApplicationName());
-        TitleBarStageFactory.init(stage);
         FXBeanUtil.registerStageBean(JfxAPPRunner.class, stage);
         stage.show();
-
-        SpringUtil.getApplicationContext().publishEvent(new JfxStartedEvent(stage));
+        SpringUtil.getBean(FX2OS.class).setDarkMode(stage, true);
+        SpringUtil.publishEvent(new JfxStartedEvent(stage));
     }
 
     @Override

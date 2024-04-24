@@ -3,17 +3,17 @@ package org.jxch.capital.client.fx.stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import lombok.NonNull;
-import org.jxch.capital.client.fx.register.FXBeanUtil;
-import org.jxch.capital.client.fx.register.FXBindingBean;
 import org.jxch.capital.client.fx.component.TitleBar;
+import org.jxch.capital.client.fx.util.FXBeanUtil;
+import org.jxch.capital.client.fx.register.FXBindingBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 @Component
+@Deprecated
 public class TitleBarStageFactory implements FactoryBean<Stage> {
 
     @Override
@@ -28,7 +28,7 @@ public class TitleBarStageFactory implements FactoryBean<Stage> {
     }
 
     public static Stage init(@NonNull Stage stage) {
-        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.initStyle(StageStyle.TRANSPARENT);
         FXBindingBean<TitleBar> fxBindingBean = FXBeanUtil.getFXBindingBean(TitleBar.class);
         fxBindingBean.getController().setStage(stage);
         fxBindingBean.getController().setLabelText(stage.getTitle());

@@ -1,4 +1,4 @@
-package org.jxch.capital.client.fx.register;
+package org.jxch.capital.client.fx.util;
 
 import cn.hutool.extra.spring.SpringUtil;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +7,8 @@ import javafx.stage.Stage;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
-import org.jxch.capital.client.fx.stage.TitleBarStageFactory;
+import org.jxch.capital.client.fx.register.FXBindingBean;
+import org.jxch.capital.client.fx.register.JFXMLParentRegister;
 
 public class FXBeanUtil {
 
@@ -30,16 +31,6 @@ public class FXBeanUtil {
 
     public static Scene getSceneBean(@NonNull Class<?> factoryClass) {
         return SpringUtil.getBean(StringUtils.uncapitalize(factoryClass.getSimpleName()), Scene.class);
-    }
-
-    @NonNull
-    public static Stage createStageAndShow(@NonNull Scene scene, String title) {
-        Stage stage = new Stage();
-        stage.setTitle(title);
-        stage.setScene(scene);
-        TitleBarStageFactory.init(stage);
-        stage.show();
-        return stage;
     }
 
     public static void registerStageBean(@NonNull Class<?> clazz, Stage stage) {

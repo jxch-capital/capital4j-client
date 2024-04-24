@@ -16,6 +16,7 @@ import org.jxch.capital.client.event.JfxStartedEvent;
 import org.jxch.capital.client.event.JfxWarmedEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class JfxWarm implements ApplicationListener<JfxStartedEvent> {
-    private final ResourcePatternResolver resolver;
+    private final ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
     private final ApplicationEventPublisher publisher;
 
     @Override

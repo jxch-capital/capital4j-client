@@ -12,8 +12,11 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.crawler.dataviz.DatavizGraphDataCrawler;
 import org.jxch.capital.client.crawler.dto.DatavizGraph;
+import org.jxch.capital.client.event.ChartTemplateCacheClearEvent;
 import org.jxch.capital.client.fx.dashboard.ChartTemplate;
 import org.jxch.capital.client.fx.dto.ChartParam;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class CrawlerWebViewDatavizChartTemplate implements ChartTemplate {
     private final TimedCache<String, WebView> cache = CacheUtil.newTimedCache(TimeUnit.HOURS.toMillis(5));
-    private final ResourcePatternResolver resourcePatternResolver;
+    private final ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
     private final DatavizGraphDataCrawler datavizGraphDataCrawler;
 
 
@@ -47,6 +50,11 @@ public class CrawlerWebViewDatavizChartTemplate implements ChartTemplate {
         }
         chartParam.getBoard().getChildren().clear();
         chartParam.getBoard().getChildren().add(webView);
+    }
+
+    @EventListener
+    public void chartTemplateCacheClearEvent(@NonNull ChartTemplateCacheClearEvent event) {
+        cache.remove(SecureUtil.md5(event.cacheKey().toString()));
     }
 
     @Override

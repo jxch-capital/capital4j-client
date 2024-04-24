@@ -26,7 +26,7 @@ public class JfxAPPRunner extends Application implements CommandLineRunner, Appl
     public void start(@NonNull Stage stage) {
         stage.setScene(FXBeanUtil.getSceneBean(MainScene.class));
         stage.setTitle(SpringUtil.getApplicationName());
-        FXBeanUtil.registerStageBean(JfxAPPRunner.class, stage);
+        FXBeanUtil.registerStageBeanByDynamic(JfxAPPRunner.class, stage);
         stage.show();
         SpringUtil.getBean(FX2OS.class).setDarkMode(stage, true);
         SpringUtil.publishEvent(new JfxStartedEvent(stage));

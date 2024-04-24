@@ -33,12 +33,24 @@ public class FXBeanUtil {
         return SpringUtil.getBean(StringUtils.uncapitalize(factoryClass.getSimpleName()), Scene.class);
     }
 
-    public static void registerStageBean(@NonNull Class<?> clazz, Stage stage) {
+    public static Stage getStageBean(@NonNull Class<?> clazz) {
+        return SpringUtil.getBean(StringUtils.uncapitalize(clazz.getSimpleName()), Stage.class);
+    }
+
+    public static void registerStageBeanByDynamic(@NonNull Class<?> clazz, Stage stage) {
         SpringUtil.registerBean(StringUtils.uncapitalize(clazz.getSimpleName()) + Stage.class.getSimpleName(), stage);
     }
 
-    public static Stage getStageBean(@NonNull Class<?> clazz) {
-        return  SpringUtil.getBean(StringUtils.uncapitalize(clazz.getSimpleName()) + Stage.class.getSimpleName());
+    public static Stage getStageBeanByDynamic(@NonNull Class<?> clazz) {
+        return SpringUtil.getBean(StringUtils.uncapitalize(clazz.getSimpleName()) + Stage.class.getSimpleName());
+    }
+
+    public static void registerSceneBeanByDynamic(@NonNull Class<?> clazz, Stage stage) {
+        SpringUtil.registerBean(StringUtils.uncapitalize(clazz.getSimpleName()) + Scene.class.getSimpleName(), stage);
+    }
+
+    public static Stage getSceneBeanByDynamic(@NonNull Class<?> clazz) {
+        return SpringUtil.getBean(StringUtils.uncapitalize(clazz.getSimpleName()) + Scene.class.getSimpleName());
     }
 
 }

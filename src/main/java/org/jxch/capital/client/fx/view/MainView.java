@@ -25,7 +25,8 @@ public class MainView {
         stageFactory.show(LogView.class, "系统日志");
     }
 
-    public void template(ActionEvent actionEvent) {
+    @Deprecated
+    public void template_bac(ActionEvent actionEvent) {
         stackPane.getChildren().clear();
         stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(ChartTemplateView.class).getParent());
     }
@@ -42,5 +43,11 @@ public class MainView {
     public void filterTemplate(ActionEvent actionEvent) {
         stackPane.getChildren().clear();
         stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(FilterTemplateView.class).getParent());
+    }
+
+    public void dashboardTemplate(ActionEvent actionEvent) {
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(DashboardTemplateView.class).getParent());
+
     }
 }

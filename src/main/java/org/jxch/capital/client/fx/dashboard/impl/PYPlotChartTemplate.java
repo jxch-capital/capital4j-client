@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.event.ChartTemplateCacheClearEvent;
 import org.jxch.capital.client.fx.dashboard.ChartTemplate;
 import org.jxch.capital.client.fx.dto.ChartParam;
-import org.jxch.capital.client.fx.util.NodeU;
+import org.jxch.capital.client.fx.util.PaneU;
 import org.jxch.capital.client.python.executor.PythonExecutor;
 import org.jxch.capital.client.uilt.FileU;
 import org.springframework.context.event.EventListener;
@@ -34,11 +34,11 @@ public class PYPlotChartTemplate implements ChartTemplate {
         String cacheKey = SecureUtil.md5(chartParam.getChartParam());
         String tmpFile = cache.get(cacheKey);
         if (Objects.nonNull(tmpFile)) {
-            NodeU.loadImage(tmpFile, chartParam.getBoard());
+            PaneU.loadImage(tmpFile, chartParam.getBoard());
         } else {
             String outputFilePath = FileU.tmpFilePath(UUID.randomUUID() + ".png");
             pythonExecutor.runCode(chartParam.getChartParam(), List.of("-o", outputFilePath));
-            NodeU.loadImage(outputFilePath, chartParam.getBoard());
+            PaneU.loadImage(outputFilePath, chartParam.getBoard());
             cache.put(cacheKey, outputFilePath);
         }
     }

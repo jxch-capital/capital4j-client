@@ -22,6 +22,7 @@ import java.util.*;
 
 @Slf4j
 @Component
+@Deprecated
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ChartTemplateView implements Initializable {
     public StackPane board;

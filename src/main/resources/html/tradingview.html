@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TradingView</title>
+    <script src="https://s3.tradingview.com/tv.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="tv_chart_container" style="height: 500px;"></div>
+
+<script type="text/javascript">
+
+    var option = {
+        "container_id": "tv_chart_container",
+        "autosize": true,
+        "symbol": "NASDAQ:AAPL",
+        "interval": "D",
+        "timezone": "exchange",
+        "theme": "dark",
+        "style": "1",
+        "locale": "zh_CN",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "allow_symbol_change": true,
+        "details": false,
+        "hide_top_toolbar": false,
+        "save_image": true,
+        "hotlist": false,
+        "calendar": true,
+        "news": [
+            "headlines"
+        ],
+        "show_popup_button": false,
+        "popup_width": "1000",
+        "popup_height": "650",
+        "load_last_chart": true,
+        "hide_side_toolbar": false,
+        // "watchlist": ["QQQ", "SPY"],
+    }
+
+    function init(json) {
+        var data = JSON.parse(json)
+        Object.keys(data).forEach(key => {
+            option[key] = data[key]
+        })
+        const widget = new TradingView.widget(option);
+    }
+</script>
+</body>
+</html>

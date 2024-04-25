@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.event.ChartTemplateCacheClearEvent;
 import org.jxch.capital.client.fx.dashboard.ChartTemplate;
 import org.jxch.capital.client.fx.dto.ChartParam;
-import org.jxch.capital.client.fx.util.NodeU;
+import org.jxch.capital.client.fx.util.PaneU;
 import org.jxch.capital.client.python.executor.PythonExecutor;
 import org.jxch.capital.client.python.service.BSQueryKService;
 import org.jxch.capital.client.stock.dto.StockQueryParam;
@@ -48,7 +48,7 @@ public class KLinePYChartTemplate implements ChartTemplate {
             cache.put(key, outputFilePath);
         }
 
-        NodeU.loadImage(outputFilePath, chartParam.getBoard());
+        PaneU.loadImage(outputFilePath, chartParam.getBoard());
     }
 
     @EventListener

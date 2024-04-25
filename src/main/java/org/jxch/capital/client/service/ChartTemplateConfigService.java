@@ -4,6 +4,7 @@ import org.jxch.capital.client.db.dto.ChartTemplateConfigDto;
 
 import java.util.List;
 
+@Deprecated
 public interface ChartTemplateConfigService {
 
     List<ChartTemplateConfigDto> findByTemplateName(String templateName);

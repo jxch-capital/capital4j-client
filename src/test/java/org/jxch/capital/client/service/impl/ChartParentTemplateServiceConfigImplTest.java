@@ -11,7 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 @Slf4j
 @SpringBootTest
 @ActiveProfiles("spring-boot-test")
-class ChartTemplateServiceConfigServiceImplTest {
+class ChartParentTemplateServiceConfigImplTest {
     @Autowired
     private ChartTemplateConfigServiceImpl chartTemplateConfigService;
 

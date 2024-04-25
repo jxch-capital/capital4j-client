@@ -12,23 +12,38 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 public class ReflectionsU {
 
     @NonNull
     @SneakyThrows
-    public static List<Class<?>> scanAllClass(@NonNull String packagePath) {
+    public static List<Class<?>> scanAllClassByMetaFilter(@NonNull String packagePath, Function<MetadataReader, Boolean> filter) {
         String classpath = "classpath*:" + packagePath.replaceAll("\\.", "/") + "/**/*.class";
         List<Class<?>> classifierClass = new ArrayList<>();
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         Resource[] resources = resolver.getResources(classpath);
         for (Resource resource : resources) {
             MetadataReader metadataReader = new CachingMetadataReaderFactory().getMetadataReader(resource);
-            Class<?> clazz = Class.forName(metadataReader.getClassMetadata().getClassName());
-            classifierClass.add(clazz);
+            if (filter.apply(metadataReader)) {
+                try {
+                    Class<?> clazz = Class.forName(metadataReader.getClassMetadata().getClassName());
+                    classifierClass.add(clazz);
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
         return classifierClass;
+    }
+
+    @NonNull
+    @SneakyThrows
+    public static List<Class<?>> scanAllClass(@NonNull String packagePath) {
+        return scanAllClassByMetaFilter(packagePath, metadataReader -> Objects.isNull(metadataReader.getClassMetadata().getSuperClassName()) ||
+                !metadataReader.getClassMetadata().getSuperClassName().contains("javafx.scene.control.ListCell"));
     }
 
     public static List<Class<?>> scanAllClass(@NonNull String packagePath, @NonNull Function<Class<?>, Boolean> classFilter) {
@@ -38,7 +53,7 @@ public class ReflectionsU {
     @NonNull
     @SuppressWarnings("unchecked")
     public static <T> T createJDKProxyByInterface(@NonNull Class<T> type, InvocationHandler invocationHandler) {
-        return (T) Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[] { type }, invocationHandler);
+        return (T) Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[]{type}, invocationHandler);
     }
 
 }

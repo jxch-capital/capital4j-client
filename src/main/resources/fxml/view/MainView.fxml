@@ -18,7 +18,8 @@
             <MenuItem mnemonicParsing="false" text="数据库管理" onAction="#dbManagement"/>
         </Menu>
         <Menu text="Dashboard">
-            <MenuItem mnemonicParsing="false" text="模板" onAction="#template"/>
+            <MenuItem mnemonicParsing="false" text="template" onAction="#dashboardTemplate"/>
+            <MenuItem mnemonicParsing="false" text="模板-back" onAction="#template_bac"/>
         </Menu>
         <Menu text="过滤器">
             <MenuItem mnemonicParsing="false" text="过滤模板" onAction="#filterTemplate"/>

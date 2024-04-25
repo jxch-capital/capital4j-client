@@ -8,17 +8,16 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-@Deprecated
 @Data
 @Builder
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChartTemplateConfigDto {
+public class ParentTemplateConfigDto {
     private String configName;
     private String templateName;
-    private String dataParamTemplate;
-    private String chartParamTemplate;
+    private String templateParam;
+    private String scriptParam;
 
     private Long id;
     private Long version;

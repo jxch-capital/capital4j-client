@@ -8,7 +8,7 @@ import lombok.SneakyThrows;
 
 import java.io.File;
 
-public class NodeU {
+public class PaneU {
 
     @SneakyThrows
     public static void loadImage(String imagePath, @NonNull Pane pane) {

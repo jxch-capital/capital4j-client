@@ -13,6 +13,7 @@ import java.util.List;
 
 @Slf4j
 @Service
+@Deprecated
 @RequiredArgsConstructor
 public class ChartTemplateConfigServiceImpl implements ChartTemplateConfigService {
     private final ChartTemplateConfigRepository chartTemplateConfigRepository;

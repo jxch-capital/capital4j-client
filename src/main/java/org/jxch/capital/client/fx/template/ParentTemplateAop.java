@@ -5,8 +5,10 @@ import cn.hutool.cache.impl.FIFOCache;
 import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.crypto.SecureUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.fastjson2.JSON;
 import com.google.common.io.CharStreams;
+import jakarta.annotation.PostConstruct;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +19,8 @@ import org.jxch.capital.client.event.PaneTemplateRemoveCacheEvent;
 import org.jxch.capital.client.uilt.ResourceU;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.Resource;
-import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -37,10 +39,10 @@ import java.util.stream.Collectors;
 @Slf4j
 @Aspect
 @Component
-public class PaneTemplateAop {
+public class ParentTemplateAop {
     private static final FIFOCache<String, Object> CACHE = CacheUtil.newFIFOCache(200);
     private static final Map<String, ScheduledFuture<?>> SCHEDULED_FUTURES = new ConcurrentHashMap<>();
-    private static final TaskScheduler SCHEDULER = new ThreadPoolTaskScheduler();
+    private static final ThreadPoolTaskScheduler SCHEDULER = new ThreadPoolTaskScheduler();
 
     @SneakyThrows
     private String getParam(Class<?> templateParamType, String templateParamValue) {
@@ -71,15 +73,15 @@ public class PaneTemplateAop {
         return JSON.toJSONString(ReflectUtil.newInstance(templateParamType));
     }
 
-    private PaneTemplateService getAnn(@NonNull ProceedingJoinPoint joinPoint) {
-        return AnnotationUtil.getAnnotation(joinPoint.getTarget().getClass(), PaneTemplateService.class);
+    private ParentTemplateService getAnn(@NonNull ProceedingJoinPoint joinPoint) {
+        return AnnotationUtil.getAnnotation(joinPoint.getTarget().getClass(), ParentTemplateService.class);
     }
 
     @SneakyThrows
     @Around("execution(* org.jxch.capital.client.fx.template.ParentTemplate.getTemplateParam(..))")
     public Object getTemplateParam(@NonNull ProceedingJoinPoint joinPoint) {
         String param = (String) joinPoint.proceed();
-        PaneTemplateService ann = getAnn(joinPoint);
+        ParentTemplateService ann = getAnn(joinPoint);
         return Objects.nonNull(param) ? param :
                 getParam(ann.templateParamType(), ann.templateParamValue());
     }
@@ -88,7 +90,7 @@ public class PaneTemplateAop {
     @Around("execution(* org.jxch.capital.client.fx.template.ParentTemplate.getScriptParam(..))")
     public Object getScriptParam(@NonNull ProceedingJoinPoint joinPoint) {
         String param = (String) joinPoint.proceed();
-        PaneTemplateService ann = getAnn(joinPoint);
+        ParentTemplateService ann = getAnn(joinPoint);
         return Objects.nonNull(param) ? param :
                 getParam(ann.scriptParamType(), ann.scriptParamValue());
     }
@@ -96,9 +98,10 @@ public class PaneTemplateAop {
     @SneakyThrows
     @Around("execution(* org.jxch.capital.client.fx.template.ParentTemplate.template(..))")
     public Object template(@NonNull ProceedingJoinPoint joinPoint) {
-        PaneTemplateService ann = getAnn(joinPoint);
+        ParentTemplateService ann = getAnn(joinPoint);
         if (ann.cache()) {
-            final String key = SecureUtil.md5(joinPoint.getSignature().getDeclaringTypeName() + Arrays.stream(joinPoint.getArgs()).map(Object::toString).collect(Collectors.joining("")));
+            final String key = SecureUtil.md5(((ParentTemplate)SpringUtil.getBean(joinPoint.getTarget().getClass())).getName()
+                    + Arrays.stream(joinPoint.getArgs()).map(Object::toString).collect(Collectors.joining("")));
             Object value = CACHE.get(key);
             if (Objects.isNull(value)) {
                 value = joinPoint.proceed(joinPoint.getArgs());
@@ -112,13 +115,13 @@ public class PaneTemplateAop {
 
     @EventListener
     public void removeCacheEvent(@NonNull PaneTemplateRemoveCacheEvent event) {
-        removeCache(SecureUtil.md5(event.getClazz().getSimpleName() + event.getTemplateParam() + event.getScriptParam()));
+        removeCache(SecureUtil.md5(SpringUtil.getBean(event.getClazz()).getName() + event.getTemplateParam() + event.getScriptParam()));
     }
 
     private void putCache(String key, Object value, String corn) {
         removeCache(key);
         CACHE.put(key, value);
-//        SCHEDULED_FUTURES.put(key, SCHEDULER.schedule(() -> removeCache(key), new CronTrigger(corn)));
+        SCHEDULED_FUTURES.put(key, SCHEDULER.schedule(() -> removeCache(key), new CronTrigger(corn)));
     }
 
     private void removeCache(String key) {
@@ -129,6 +132,11 @@ public class PaneTemplateAop {
             SCHEDULED_FUTURES.get(key).cancel(true);
             SCHEDULED_FUTURES.remove(key);
         }
+    }
+
+    @PostConstruct
+    public void init() {
+        SCHEDULER.initialize();
     }
 
 }

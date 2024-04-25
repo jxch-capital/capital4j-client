@@ -42,6 +42,7 @@ public class JfxAPPRunner extends Application implements CommandLineRunner, Appl
     public void stop() {
         log.info("JAVA FX已退出，现在关闭Spring容器");
         ((ConfigurableApplicationContext) SpringUtil.getApplicationContext()).close();
+        System.exit(0);
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Component
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PaneTemplateService {
+public @interface ParentTemplateService {
 
     Class<?> templateParamType() default String.class;
 

@@ -1,11 +1,11 @@
 package org.jxch.capital.client.fx.scene;
 
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.jfoenix.assets.JFoenixResources;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.config.JFXConfig;
@@ -20,10 +20,8 @@ import java.util.Arrays;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class SceneFactory {
     private final ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
-    private final JFXConfig jfxConfig;
 
     public Scene createScene(Parent parent) {
         return init(new Scene(parent));
@@ -39,7 +37,7 @@ public class SceneFactory {
         scene.getStylesheets().add(JFoenixResources.load("css/jfoenix-design.css").toExternalForm());
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
-        Arrays.stream(resourcePatternResolver.getResources(jfxConfig.getCssScan())).forEach(resource -> {
+        Arrays.stream(resourcePatternResolver.getResources(SpringUtil.getBean(JFXConfig.class).getCssScan())).forEach(resource -> {
             try {
                 scene.getStylesheets().add(resource.getURL().toExternalForm());
             } catch (IOException e) {

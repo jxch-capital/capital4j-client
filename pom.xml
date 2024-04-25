@@ -29,6 +29,7 @@
         <jsoup.version>1.17.2</jsoup.version>
         <okhttp.version>5.0.0-alpha.14</okhttp.version>
         <jna.version>5.14.0</jna.version>
+        <shardingsphere.version>5.2.1</shardingsphere.version>
     </properties>
 
     <dependencies>
@@ -71,6 +72,22 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring-boot.version}</version>
             <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.shardingsphere/shardingsphere-jdbc-core-spring-boot-starter -->
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+            <version>5.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>
@@ -183,7 +200,6 @@
             <artifactId>jna-platform</artifactId>
             <version>${jna.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>

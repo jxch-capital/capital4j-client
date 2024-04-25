@@ -12,6 +12,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Deprecated
 public class ChartParam {
     private String chartParam;
     private StackPane board;

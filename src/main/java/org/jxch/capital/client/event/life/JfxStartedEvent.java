@@ -1,4 +1,4 @@
-package org.jxch.capital.client.event;
+package org.jxch.capital.client.event.life;
 
 import org.springframework.context.ApplicationEvent;
 

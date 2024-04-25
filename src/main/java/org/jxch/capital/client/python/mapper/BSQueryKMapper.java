@@ -34,7 +34,7 @@ public interface BSQueryKMapper {
             case MINUTE_60 -> bsQueryKParam.setFrequency("60").setDailyFields();
             default -> throw new IllegalArgumentException("Invalid frequency: " + param.getFrequency());
         }
-        return bsQueryKParam.setCsvFile(FileU.tmpFilePath(param.getCode() + "-" + UUID.randomUUID() + ".csv"));
+        return bsQueryKParam.setCsvFile(FileU.tmpFilePath(UUID.randomUUID() + ".csv"));
     }
 
 

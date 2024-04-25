@@ -19,6 +19,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
@@ -34,10 +35,10 @@ import java.util.stream.Collectors;
 @Component
 @NoArgsConstructor
 public class PythonBinderRegister implements BeanFactoryPostProcessor, InvocationHandler, ApplicationListener<ContextRefreshedEvent> {
+    private final ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
     private PyBindRunnerParamProcessor pyBindRunnerParamProcessor;
     private final Map<String, String> binders = new HashMap<>();
     private volatile Map<String, Resource> resources = null;
-    private ResourcePatternResolver resourcePatternResolver;
     private PythonExecutor pythonExecutor;
     private JFXConfig jfxConfig;
     private AppConfig appConfig;
@@ -46,7 +47,7 @@ public class PythonBinderRegister implements BeanFactoryPostProcessor, Invocatio
     @SneakyThrows
     public Object invoke(Object proxy, Method method, Object[] args) {
         if (Objects.isNull(resources)) {
-            resources = Arrays.stream(resourcePatternResolver.getResources(jfxConfig.getPyScan())).collect(Collectors.toMap(Resource::getFilename, Functions.identity()));
+            resources = Arrays.stream(resolver.getResources(jfxConfig.getPyScan())).collect(Collectors.toMap(Resource::getFilename, Functions.identity()));
         }
 
         String simpleName = Arrays.stream(proxy.getClass().getInterfaces()).filter(PyBindRunner.class::isAssignableFrom).findFirst().orElseThrow().getSimpleName();
@@ -79,7 +80,6 @@ public class PythonBinderRegister implements BeanFactoryPostProcessor, Invocatio
     public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
         pyBindRunnerParamProcessor = SpringUtil.getBean(PyBindRunnerParamProcessor.class);
         pythonExecutor = SpringUtil.getBean(PythonExecutor.class);
-        resourcePatternResolver = event.getApplicationContext();
         jfxConfig = SpringUtil.getBean(JFXConfig.class);
         appConfig = SpringUtil.getBean(AppConfig.class);
     }

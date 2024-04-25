@@ -8,7 +8,7 @@ import javafx.scene.layout.StackPane;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.db.dto.ParentTemplateConfigDto;
-import org.jxch.capital.client.event.PaneTemplateRemoveCacheEvent;
+import org.jxch.capital.client.event.operational.ParentTemplateRemoveCacheEvent;
 import org.jxch.capital.client.fx.template.dashboard.DashboardParentTemplate;
 import org.jxch.capital.client.fx.util.ComboxListCell;
 import org.jxch.capital.client.fx.util.PaneU;
@@ -64,7 +64,7 @@ public class DashboardTemplateView implements Initializable {
 
     public void cacheClear() {
         board.getChildren().clear();
-        SpringUtil.publishEvent(new PaneTemplateRemoveCacheEvent(this)
+        SpringUtil.publishEvent(new ParentTemplateRemoveCacheEvent(this)
                 .setClazz(templateBox.getSelectionModel().getSelectedItem().getClass())
                 .setTemplateParam(templateParam.getText())
                 .setScriptParam(scriptParam.getText())

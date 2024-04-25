@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.crawler.breath.BreathCrawler;
 import org.jxch.capital.client.crawler.dto.BreathParam;
-import org.jxch.capital.client.event.ChartTemplateCacheClearEvent;
+import org.jxch.capital.client.event.operational.ChartTemplateCacheClearEvent;
 import org.jxch.capital.client.fx.dashboard.ChartTemplate;
 import org.jxch.capital.client.fx.dto.ChartParam;
 import org.springframework.context.event.EventListener;

@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 import lombok.SneakyThrows;
 import org.jxch.capital.client.config.AppConfig;
-import org.jxch.capital.client.event.OperationalEvent;
+import org.jxch.capital.client.event.operational.OperationalEvent;
 import org.jxch.capital.client.python.executor.PythonExecutor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;

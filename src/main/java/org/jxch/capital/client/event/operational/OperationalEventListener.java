@@ -1,4 +1,4 @@
-package org.jxch.capital.client.event;
+package org.jxch.capital.client.event.operational;
 
 import javafx.geometry.Pos;
 import javafx.util.Duration;

@@ -10,7 +10,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.jxch.capital.client.event.ChartTemplateCacheClearEvent;
+import org.jxch.capital.client.event.operational.ChartTemplateCacheClearEvent;
 import org.jxch.capital.client.fx.dashboard.ChartTemplate;
 import org.jxch.capital.client.fx.dto.ChartParam;
 import org.jxch.capital.client.stock.StockService;
@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+@Deprecated
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -44,7 +45,7 @@ public class KLineWebViewChartTemplate implements ChartTemplate {
         WebView webView = cache.get(key);
 
         if (Objects.isNull(webView)) {
-            List<KLine> kLines = stockService.query(JSON.parseObject(dataParam, StockQueryParam.class));
+            List<KLine> kLines = stockService.queryOne(JSON.parseObject(dataParam, StockQueryParam.class));
             var data =  kLines.stream().map(kLine -> List.of(kLine.getDate().getTime(), kLine.getOpen(), kLine.getHigh(), kLine.getLow(), kLine.getClose(), kLine.getVolume())).toList();
             File tmp = FileU.writeString2tmpFile(chartParam.getChartParam(), ".html");
             WebView wv = new WebView();

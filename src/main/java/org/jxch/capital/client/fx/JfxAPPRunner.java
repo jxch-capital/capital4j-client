@@ -6,7 +6,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.jxch.capital.client.event.JfxStartedEvent;
+import org.jxch.capital.client.event.life.JfxStartedEvent;
 import org.jxch.capital.client.fx.os.FX2OS;
 import org.jxch.capital.client.fx.util.FXBeanUtil;
 import org.jxch.capital.client.fx.scene.MainScene;

@@ -1,4 +1,4 @@
-package org.jxch.capital.client.event;
+package org.jxch.capital.client.event.operational;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,14 +12,18 @@ import java.time.Clock;
 @Getter
 @Setter
 @Accessors(fluent = true)
-public class ChartTemplateCacheClearEvent extends ApplicationEvent {
-    private Object cacheKey;
+public class OperationalEvent extends ApplicationEvent {
 
-    public ChartTemplateCacheClearEvent(Object source) {
+    public OperationalEvent(Object source) {
         super(source);
     }
 
-    public ChartTemplateCacheClearEvent(Object source, Clock clock) {
+    public OperationalEvent(Object source, Clock clock) {
         super(source, clock);
     }
+
+    public String getMsg() {
+        return getSource().toString();
+    }
+
 }

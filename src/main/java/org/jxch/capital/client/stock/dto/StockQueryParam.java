@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class StockQueryParam {
-    private String code = "";
+    private List<String> codes = List.of();
     @Builder.Default
     private Date startDate = DateUtil.date().offset(DateField.DAY_OF_YEAR, -20);
     @Builder.Default

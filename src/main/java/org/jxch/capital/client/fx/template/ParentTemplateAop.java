@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.jxch.capital.client.event.PaneTemplateRemoveCacheEvent;
+import org.jxch.capital.client.event.operational.ParentTemplateRemoveCacheEvent;
 import org.jxch.capital.client.uilt.ResourceU;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.Resource;
@@ -114,7 +114,7 @@ public class ParentTemplateAop {
     }
 
     @EventListener
-    public void removeCacheEvent(@NonNull PaneTemplateRemoveCacheEvent event) {
+    public void removeCacheEvent(@NonNull ParentTemplateRemoveCacheEvent event) {
         removeCache(SecureUtil.md5(SpringUtil.getBean(event.getClazz()).getName() + event.getTemplateParam() + event.getScriptParam()));
     }
 

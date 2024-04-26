@@ -2,6 +2,7 @@ package org.jxch.capital.client.uilt;
 
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import org.jxch.capital.client.db.sharding.Sharding;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -54,6 +55,18 @@ public class ReflectionsU {
     @SuppressWarnings("unchecked")
     public static <T> T createJDKProxyByInterface(@NonNull Class<T> type, InvocationHandler invocationHandler) {
         return (T) Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[]{type}, invocationHandler);
+    }
+
+    @NonNull
+    @SneakyThrows
+    public static Class<?> classForName(String name) {
+        return Class.forName(name);
+    }
+
+    @NonNull
+    public static Class<?> shardingClassForName(String name) {
+        return scanAllClass(Sharding.class.getPackageName()).stream()
+                .filter(clazz -> Objects.equals(clazz.getSimpleName(), name)).findFirst().orElseThrow();
     }
 
 }

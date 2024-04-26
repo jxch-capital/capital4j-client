@@ -5,7 +5,6 @@ import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.jxch.capital.client.db.dto.KLineHisCNDto;
-import org.jxch.capital.client.db.sharding.k_line_his_cn.KLineHisCNSharding;
 import org.jxch.capital.client.db.sharding.k_line_his_cn.dao.KLineHisCN2015Repository;
 import org.jxch.capital.client.service.KLineHisCNService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
-import java.util.stream.LongStream;
 
 @Slf4j
 @SpringBootTest
@@ -39,22 +37,11 @@ class KLineHisCNServiceImplTest {
                 .date(DateUtil.parse("2015-05-05", "yyyy-MM-dd"))
                 .build()));
         log.info("{}", total);
-        findByCodeAndDateBetween();
-        log.info("逻辑分片查询：⬇");
-        findByCodeAndDate();
-
-        deleteById();
     }
 
     @Test
-    void deleteById() {
-        kLineHisCNService.deleteByIds(LongStream.range(0, 100).boxed().toList());
-        findByCodeAndDateBetween();
-    }
-
-    @Test
-    void findByCodeAndDate() {
-        List<KLineHisCNSharding.KLineHisCN2015> dtoList = kLineHisCN2015Repository.findAllByCodeAndDateBetween(1,
+    void findByCodeAndDateBetween2015() {
+        var dtoList = kLineHisCN2015Repository.findAllByCodeAndDateBetween(1,
                 DateUtil.parse("2015-01-05", "yyyy-MM-dd"), DateUtil.parse("2015-08-05", "yyyy-MM-dd"));
         log.info(JSON.toJSONString(dtoList));
     }

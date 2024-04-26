@@ -13,12 +13,13 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <compiler.version>3.13.0</compiler.version>
-        <spring-boot.version>3.2.4</spring-boot.version>
+        <spring-boot.version>3.2.5</spring-boot.version>
         <controlsfx.version>11.2.1</controlsfx.version>
         <javafx.version>21.0.3</javafx.version>
         <lombok.version>1.18.32</lombok.version>
         <hutool.version>5.8.27</hutool.version>
         <h2.version>2.2.224</h2.version>
+        <sqlite.version>3.45.3.0</sqlite.version>
         <guava.version>33.1.0-jre</guava.version>
         <lang3.version>3.14.0</lang3.version>
         <jfoenix.version>9.0.10</jfoenix.version>
@@ -29,7 +30,7 @@
         <jsoup.version>1.17.2</jsoup.version>
         <okhttp.version>5.0.0-alpha.14</okhttp.version>
         <jna.version>5.14.0</jna.version>
-        <shardingsphere.version>5.2.1</shardingsphere.version>
+        <shardingsphere.version>5.5.1-SNAPSHOT</shardingsphere.version>
     </properties>
 
     <dependencies>
@@ -56,6 +57,18 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
@@ -67,46 +80,18 @@
             <artifactId>okhttp-urlconnection</artifactId>
             <version>${okhttp.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.shardingsphere/shardingsphere-jdbc-core-spring-boot-starter -->
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
-            <version>5.1.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
-            <scope>runtime</scope>
-        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
         <dependency>
             <groupId>org.controlsfx</groupId>
@@ -141,6 +126,7 @@
             <artifactId>bootstrapfx-core</artifactId>
             <version>0.4.0</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>

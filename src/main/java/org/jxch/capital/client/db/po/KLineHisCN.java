@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 @Data
-@Entity
+@Entity(name = "k_line_his_cn")
 @EqualsAndHashCode(callSuper = true)
 public class KLineHisCN extends BasePo {
     @Column(nullable = false)

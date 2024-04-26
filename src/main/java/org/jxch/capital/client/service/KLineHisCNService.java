@@ -11,4 +11,8 @@ public interface KLineHisCNService {
 
     Integer saveAll(List<KLineHisCNDto> dtoList);
 
+    void deleteById(Long id);
+
+    void deleteByIds(List<Long> ids);
+
 }

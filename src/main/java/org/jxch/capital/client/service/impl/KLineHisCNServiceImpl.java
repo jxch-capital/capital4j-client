@@ -29,4 +29,14 @@ public class KLineHisCNServiceImpl implements KLineHisCNService {
         return kLineHisCNRepository.saveAll(kLineHisCNMapper.toKLineHisCN(dtoList)).size();
     }
 
+    @Override
+    public void deleteById(Long id) {
+        kLineHisCNRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByIds(List<Long> ids) {
+        kLineHisCNRepository.deleteAllById(ids);
+    }
+
 }

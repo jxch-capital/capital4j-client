@@ -1,0 +1,26 @@
+dataSources:
+  ds:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: rg.sqlite.JDBC
+#    jdbcUrl: jdbc:h2:file:~/development/capital4j-client/h2;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
+#    jdbcUrl: jdbc:h2:mem:config;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    jdbcUrl: jdbc:sqlite:~/development/capital4j-client/test.db
+    username: capital4j-client
+    password: capital4j-client
+#rules:
+#- !SHARDING
+#    tables:
+#      k_line_his_cn:
+#        actualDataNodes: ds.k_line_his_cn_$->{1999..2030}
+#        tableStrategy:
+#          standard:
+#            shardingColumn: date
+#            shardingAlgorithmName: k_line_his_cn_by_year
+#    shardingAlgorithms:
+#      k_line_his_cn_by_year:
+#        type: CLASS_BASED
+#        props:
+#          strategy: standard
+#          algorithmClassName: org.jxch.capital.client.db.po.sharding.YearBasedShardingAlgorithm
+props:
+  sql-show: true

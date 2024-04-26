@@ -5,32 +5,17 @@ app:
   python-win-amd64-url: https://www.python.org/ftp/python/3.12.3/python-3.12.3-embed-amd64.zip
   tmp-path: ${app.data-path}\tmp
 
+server:
+  port: 18080
+
 spring:
-  shardingsphere:
-    mode:
-      type: Standalone
-    datasource:
-      names: ds
-      ds:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: org.h2.Driver
-        jdbc-url: jdbc:h2:file://${app.h2db-path};DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
-        username: capital4j-client
-        password: capital4j-client
-    rules:
-      sharding:
-        tables:
-          k_line_his_cn:
-            actual-data-nodes: ds.k_line_his_cn_$->{1999..2030}
-            table-strategy:
-              standard:
-                sharding-column: date
-                sharding-algorithm-name: k_line_his_cn_by_year
-        sharding-algorithms:
-          k_line_his_cn_by_year:
-            type: INLINE
-            props:
-              algorithm-expression: k_line_his_cn_$->{date.year}
+  datasource:
+#    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+#    url: jdbc:shardingsphere:classpath:sharding.yaml
+      url: jdbc:h2:file:${app.h2db-path};DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
+      driverClassName: org.h2.Driver
+      username: capital4j-client
+      password: capital4j-client
   jpa:
     hibernate:
       ddl-auto: update
@@ -41,8 +26,7 @@ spring:
     type: caffeine
     caffeine:
       spec: maximumSize=5000,expireAfterAccess=600s
-  thymeleaf:
-    check-template-location: false
 
-server:
-  port: 18080
+logging:
+  level:
+    sql: debug

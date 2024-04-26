@@ -208,11 +208,25 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler.version}</version>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <compilerArgument>-parameters</compilerArgument>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+
+    <distributionManagement>
+        <repository>
+            <id>nexus3</id>
+            <name>Internal Release Repository</name>
+            <url>http://localhost:38081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus3</id>
+            <name>Internal Snapshot Repository</name>
+            <url>http://localhost:38081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

@@ -1,4 +1,4 @@
-package org.jxch.capital.client.db.po.sharding;
+package org.jxch.capital.client.db.sharding.k_line_his_cn;
 
 import jakarta.persistence.*;
 import lombok.Data;

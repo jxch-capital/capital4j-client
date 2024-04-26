@@ -14,7 +14,8 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KLineHisCNServiceImpl implements KLineHisCNService {
+public class KLineHisCNServiceImpl
+        implements KLineHisCNService {
     private final KLineHisCNRepository kLineHisCNRepository;
     private final KLineHisCNMapper kLineHisCNMapper;
 

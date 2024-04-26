@@ -10,8 +10,6 @@ server:
 
 spring:
   datasource:
-#    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
-#    url: jdbc:shardingsphere:classpath:sharding.yaml
       url: jdbc:h2:file:${app.h2db-path};DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
       driverClassName: org.h2.Driver
       username: capital4j-client
@@ -29,4 +27,4 @@ spring:
 
 logging:
   level:
-    sql: debug
+    sql: info

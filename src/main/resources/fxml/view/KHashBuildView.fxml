@@ -21,7 +21,7 @@
             <Button text="更新" onAction="#update"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button text="重置缓存" onAction="#cacheClear"/>
-            <Button text="模板" onAction="#run"/>
+            <Button text="RUN" onAction="#run"/>
             <CheckBox fx:id="auto"/>
         </HBox>
     </VBox>

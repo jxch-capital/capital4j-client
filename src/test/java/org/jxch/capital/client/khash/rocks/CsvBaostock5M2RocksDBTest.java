@@ -16,22 +16,22 @@ import java.util.List;
 @Slf4j
 @SpringBootTest
 @ActiveProfiles("spring-boot-test")
-class CsvBaostockIntraday2RocksDBTest {
+class CsvBaostock5M2RocksDBTest {
     @Autowired
-    private CsvBaostockIntraday2RocksDB csvBaostockIntraday2RocksDB;
+    private CsvBaostock5M2RocksDB csvBaostock5M2RocksDB;
 
     @Test
     void toRocksDB() {
         TimeInterval timer = DateUtil.timer();
         String testFile = "G:\\app\\backup\\data\\stock_data\\csv\\5-2\\sh.600000_19900101-20231231.csv";
-        csvBaostockIntraday2RocksDB.toRocksDB(List.of(new File(testFile)));
+        csvBaostock5M2RocksDB.toRocksDB(List.of(new File(testFile)));
         log.info("time: {}s.", timer.intervalSecond());
     }
 
     @Test
     void find() {
         TimeInterval timer = DateUtil.timer();
-        List<KLine> kLines = csvBaostockIntraday2RocksDB.find("sh.600000", DateUtil.parse("20131023", "yyyyMMdd"));
+        List<KLine> kLines = csvBaostock5M2RocksDB.find("sh.600000", DateUtil.parse("20131023", "yyyyMMdd"));
         log.info(JSON.toJSONString(kLines));
         log.info("time: {}s.", timer.intervalSecond());
     }

@@ -7,6 +7,7 @@ import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONWriter;
 import com.google.common.io.CharStreams;
 import jakarta.annotation.PostConstruct;
 import lombok.NonNull;
@@ -70,7 +71,7 @@ public class ParentTemplateAop {
             return CharStreams.toString(new InputStreamReader(URI.create(templateParamValue).toURL().openStream()));
         }
 
-        return JSON.toJSONString(ReflectUtil.newInstance(templateParamType));
+        return JSON.toJSONString(ReflectUtil.newInstance(templateParamType), JSONWriter.Feature.PrettyFormat, JSONWriter.Feature.WriteNulls);
     }
 
     private ParentTemplateService getAnn(@NonNull ProceedingJoinPoint joinPoint) {

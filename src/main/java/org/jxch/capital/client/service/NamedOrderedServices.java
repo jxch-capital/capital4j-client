@@ -22,4 +22,8 @@ public class NamedOrderedServices {
         return allSortedServices(serviceClass).stream().map(NamedOrderedService::getName).toList();
     }
 
+    public static <T extends NamedOrderedService> T findServiceByName(Class<T> serviceClass, String name) {
+        return allServices(serviceClass).get(name);
+    }
+
 }

@@ -3,8 +3,8 @@ package org.jxch.capital.client.fx.view;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.StackPane;
 import lombok.RequiredArgsConstructor;
-import org.jxch.capital.client.fx.util.FXBeanUtil;
 import org.jxch.capital.client.fx.stage.StageFactory;
+import org.jxch.capital.client.fx.util.FXBeanUtil;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -50,4 +50,10 @@ public class MainView {
         stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(DashboardTemplateView.class).getParent());
 
     }
+
+    public void kHashBuild(ActionEvent actionEvent) {stackPane.getChildren().clear();
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(KHashBuildView.class).getParent());
+    }
+
 }

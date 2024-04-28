@@ -51,6 +51,12 @@
             <artifactId>spring-boot-starter-cache</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -186,6 +192,13 @@
             <artifactId>jna-platform</artifactId>
             <version>${jna.version}</version>
         </dependency>
+
+
+<!--        <dependency>-->
+<!--            <groupId>org.jxch.free</groupId>-->
+<!--            <artifactId>spring-data-jpa-sharding</artifactId>-->
+<!--            <version>3.2.5-SNAPSHOT</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

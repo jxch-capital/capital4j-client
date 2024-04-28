@@ -23,6 +23,10 @@ spring:
     type: caffeine
     caffeine:
       spec: maximumSize=5000,expireAfterAccess=600s
+  data:
+    redis:
+      host: localhost
+      port: 16379
 
 logging:
   level:

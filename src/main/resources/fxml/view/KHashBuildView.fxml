@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.jxch.capital.client.fx.view.KHashBuildView">
+    <VBox>
+        <ComboBox fx:id="templateBox" maxWidth="300"/>
+        <ComboBox fx:id="configBox" maxWidth="300"/>
+        <TextArea fx:id="templateParam" maxWidth="300" minHeight="300"/>
+        <TextArea fx:id="scriptParam" maxWidth="300" minHeight="700"/>
+        <TextField fx:id="configName" maxWidth="300"/>
+        <HBox>
+            <Button text="删除" onAction="#del"/>
+            <Button text="添加" onAction="#add"/>
+            <Button text="更新" onAction="#update"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="重置缓存" onAction="#cacheClear"/>
+            <Button text="模板" onAction="#run"/>
+            <CheckBox fx:id="auto"/>
+        </HBox>
+    </VBox>
+    <StackPane fx:id="board" minWidth="1300"/>
+</HBox>

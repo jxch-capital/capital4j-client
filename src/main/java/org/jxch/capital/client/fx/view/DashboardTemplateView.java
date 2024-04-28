@@ -3,10 +3,14 @@ package org.jxch.capital.client.fx.view;
 import cn.hutool.extra.spring.SpringUtil;
 import jakarta.annotation.Resource;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jxch.capital.client.config.ThreadConfig;
 import org.jxch.capital.client.db.dto.ParentTemplateConfigDto;
 import org.jxch.capital.client.event.operational.ParentTemplateRemoveCacheEvent;
 import org.jxch.capital.client.fx.template.dashboard.DashboardParentTemplate;
@@ -71,7 +75,7 @@ public class DashboardTemplateView implements Initializable {
         );
     }
 
-    @Async
+    @Async(value = ThreadConfig.VIRTUAL_THREAD_POOL)
     public void run() {
         PaneU.updateNode(board, templateBox.getSelectionModel().getSelectedItem().template(templateParam.getText(), scriptParam.getText()));
     }

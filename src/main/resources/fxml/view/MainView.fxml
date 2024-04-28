@@ -31,7 +31,7 @@
 
         </Menu>
         <Menu text="KHash">
-            <MenuItem mnemonicParsing="false" text="构建Hash索引"/>
+            <MenuItem mnemonicParsing="false" text="构建Hash索引" onAction="#kHashBuild"/>
         </Menu>
         <Menu text="数据源">
 

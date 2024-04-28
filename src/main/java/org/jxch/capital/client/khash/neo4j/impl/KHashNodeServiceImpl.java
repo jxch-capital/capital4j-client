@@ -5,11 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jxch.capital.client.config.DBConfig;
-import org.jxch.capital.client.khash.neo4j.KHashNode;
-import org.jxch.capital.client.khash.neo4j.KHashNodeData;
-import org.jxch.capital.client.khash.neo4j.KHashNodeRepository;
 import org.jxch.capital.client.khash.neo4j.KHashNodeService;
-import org.springframework.context.annotation.Primary;
+import org.jxch.capital.client.khash.neo4j.dao.KHashNodeRepository;
+import org.jxch.capital.client.khash.neo4j.node.KHashNode;
+import org.jxch.capital.client.khash.neo4j.node.KHashNodeData;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +18,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@Primary
+@Service
 @RequiredArgsConstructor
-@Service(KHashNodeServiceImpl.BEAN_NAME)
 @Transactional(transactionManager = DBConfig.TRANSACTION_MANAGER)
 public class KHashNodeServiceImpl implements KHashNodeService {
-    public static final String BEAN_NAME = "KHashNodeServiceImpl";
     private final Neo4jTemplate neo4jTemplate;
     private final KHashNodeRepository repository;
     private final static String ROOT_PATH = "0";

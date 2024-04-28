@@ -1,4 +1,4 @@
-package org.jxch.capital.client.khash.neo4j;
+package org.jxch.capital.client.khash.neo4j.node;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.Data;

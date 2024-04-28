@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,8 +15,8 @@ import java.text.DecimalFormat;
 import java.util.UUID;
 import java.util.concurrent.atomic.LongAdder;
 
+@Slf4j
 public class ProgressBarPane {
-    private static final Logger log = LoggerFactory.getLogger(ProgressBarPane.class);
     @Getter
     private final String uuid = UUID.randomUUID().toString();
     @Getter
@@ -31,6 +32,7 @@ public class ProgressBarPane {
     public ProgressBarPane(Integer total) {
         this.total = total;
         this.pane.getChildren().addAll(this.progressBar, this.label);
+        this.label.setText(msg());
     }
 
     public void add(Integer increment) {
@@ -39,10 +41,14 @@ public class ProgressBarPane {
         if (current.intValue() % (total / 100) == 0 || isEnd()) {
             Platform.runLater(() -> {
                 progressBar.setProgress(current.doubleValue() / total);
-                label.setText(String.format("[%s] == [%s/%s] [%s%%]", timer.intervalPretty(), current.intValue(), total,
-                        new DecimalFormat("0.00").format(current.doubleValue() / total)));
+                label.setText(msg());
             });
         }
+    }
+
+    private String msg() {
+        return String.format("[%s] >>>> [%s/%s] [%s%%]", timer.intervalPretty(), current.intValue(), total,
+                new DecimalFormat("0.00").format(current.doubleValue() / total));
     }
 
     public boolean isEnd() {

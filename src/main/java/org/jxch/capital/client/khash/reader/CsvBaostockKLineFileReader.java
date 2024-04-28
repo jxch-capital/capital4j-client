@@ -20,8 +20,10 @@ public class CsvBaostockKLineFileReader implements KLineFileReader {
 
     @Override
     public List<KLine> readeAll(@NonNull File file) {
+        String[] nameSplits = file.getName().trim().split("_");
+        String code = nameSplits[0];
         return kHashMapper.toKLineByCsvBaostockIntraday(CsvUtil.getReader().read(
-                ResourceUtil.getUtf8Reader(file.getAbsolutePath()), CsvBaostockIntradayDto.class));
+                ResourceUtil.getUtf8Reader(file.getAbsolutePath()), CsvBaostockIntradayDto.class), code);
     }
 
 }

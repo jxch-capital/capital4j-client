@@ -10,11 +10,9 @@ import javafx.scene.control.ProgressBar;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.config.ThreadConfig;
-import org.jxch.capital.client.db.mapper.KLineHisCN5mMapper;
 import org.jxch.capital.client.fx.dto.Csv5m2DBParam;
 import org.jxch.capital.client.fx.dto.CsvCN5mKLineDto;
 import org.jxch.capital.client.fx.template.ParentTemplateService;
-import org.jxch.capital.client.service.KLineHisCN5mService;
 import org.springframework.scheduling.annotation.Async;
 
 import java.io.File;
@@ -27,8 +25,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequiredArgsConstructor
 @ParentTemplateService(templateParamType = Csv5m2DBParam.class, cache = false)
 public class Csv2DBTemplate implements KHashParentTemplate {
-    private final KLineHisCN5mService kLineHisCN5mService;
-    private final KLineHisCN5mMapper kLineHisCN5mMapper;
 
     @Override
     public Parent template(String templateParam, String scriptParam) {
@@ -52,7 +48,6 @@ public class Csv2DBTemplate implements KHashParentTemplate {
 
     @Async(value = ThreadConfig.VIRTUAL_THREAD_POOL)
     public void toDB(List<CsvCN5mKLineDto> csvCN5MKLineDtoList) {
-        kLineHisCN5mService.saveAll(kLineHisCN5mMapper.toKLineHisCN5mDtoByCsvCN5mKLineDto(csvCN5MKLineDtoList));
     }
 
     @Override

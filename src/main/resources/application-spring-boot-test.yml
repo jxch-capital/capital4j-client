@@ -6,3 +6,11 @@ spring:
       host: localhost
       port: 16379
 
+app:
+  data-path: G:\data\development\capital4j-client
+  h2db-path: ${app.data-path}\h2
+  python-path: ${app.data-path}\python
+  python-win-amd64-url: https://www.python.org/ftp/python/3.12.3/python-3.12.3-embed-amd64.zip
+  tmp-path: ${app.data-path}\tmp
+  rocksdb:
+    path: ${app.data-path}\rocksdb

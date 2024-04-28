@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jxch.capital.client.fx.dto.Csv2DBParam;
-import org.jxch.capital.client.fx.progress.ProgressBarDto;
 import org.jxch.capital.client.fx.progress.ProgressBarPane;
 import org.jxch.capital.client.fx.progress.ProgressBarService;
 import org.jxch.capital.client.fx.template.ParentTemplateService;
@@ -19,7 +18,7 @@ import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
-@ParentTemplateService(templateParamType = Csv2DBParam.class, cache = false)
+@ParentTemplateService(templateParamType = Csv2DBParam.class)
 public class Csv2DBTemplate implements KHashParentTemplate {
     private final ProgressBarService progressBarService;
 

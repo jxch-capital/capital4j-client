@@ -1,8 +1,6 @@
 package org.jxch.capital.client.fx.progress;
 
 import cn.hutool.extra.spring.SpringUtil;
-import javafx.application.Platform;
-import javafx.scene.control.ProgressBar;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jxch.capital.client.event.ProgressBarEvent;
@@ -29,7 +27,6 @@ public class ProgressBarService implements Progress, ApplicationListener<Progres
     public void onApplicationEvent(@NotNull ProgressBarEvent event) {
         ProgressBarPane pane = PROGRESSES.get(event.getUuid());
         pane.add(event.getNum());
-        log.info("[{}]: [{}/{}]", event.getUuid(), pane.getCurrent().intValue(), pane.getTotal());
 
         if (!event.isSucceed()) {
             SpringUtil.publishEvent(new SystemErrorEvent(this).setErrorMsg(event.getErrorMsg()));

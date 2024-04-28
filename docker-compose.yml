@@ -7,4 +7,12 @@ services:
       - ./data/redis:/data
     ports:
       - "16379:6379"
-
+  neo4j:
+    image: neo4j:latest
+    ports:
+      - "17474:7474"
+      - "17687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/capital4j-client
+    volumes:
+      - ./data/neo4j:/data

@@ -1,7 +1,6 @@
 package org.jxch.capital.client.config;
 
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import jakarta.annotation.PreDestroy;
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -14,7 +13,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Data
@@ -23,6 +23,7 @@ import java.util.Objects;
 public class RocksDBConfig {
     public static final String KLINE_CN_5M_CODE_DATE_DB = "KLINE_CN_5M_CODE_DATE_DB";
     private String path;
+    private List<RocksDB> rocksDBs = new ArrayList<>();
 
     private void createRocksDirIfMissing() {
         FileUtil.mkdir(new File(path));
@@ -34,16 +35,15 @@ public class RocksDBConfig {
         createRocksDirIfMissing();
         RocksDB.loadLibrary();
         try (Options options = new Options().setCreateIfMissing(true)) {
-            return RocksDB.open(options, Path.of(path).resolve(KLINE_CN_5M_CODE_DATE_DB).toString());
+            RocksDB rocksDB = RocksDB.open(options, Path.of(path).resolve(KLINE_CN_5M_CODE_DATE_DB).toString());
+            rocksDBs.add(rocksDB);
+            return rocksDB;
         }
     }
 
     @PreDestroy
     public void close() {
-        RocksDB rocksDB = SpringUtil.getBean(RocksDB.class);
-        if (Objects.nonNull(rocksDB)) {
-            rocksDB.close();
-        }
+        rocksDBs.forEach(RocksDB::close);
     }
 
 }

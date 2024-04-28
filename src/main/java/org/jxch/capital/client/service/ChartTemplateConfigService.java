@@ -1,6 +1,6 @@
 package org.jxch.capital.client.service;
 
-import org.jxch.capital.client.db.dto.ChartTemplateConfigDto;
+import org.jxch.capital.client.db.h2.dto.ChartTemplateConfigDto;
 
 import java.util.List;
 

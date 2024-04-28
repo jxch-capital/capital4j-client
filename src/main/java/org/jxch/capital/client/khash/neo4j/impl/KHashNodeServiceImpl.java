@@ -6,9 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jxch.capital.client.config.DBConfig;
 import org.jxch.capital.client.khash.neo4j.KHashNodeService;
-import org.jxch.capital.client.khash.neo4j.dao.KHashNodeRepository;
-import org.jxch.capital.client.khash.neo4j.node.KHashNode;
-import org.jxch.capital.client.khash.neo4j.node.KHashNodeData;
+import org.jxch.capital.client.db.neo4j.node.KHashNode;
+import org.jxch.capital.client.db.neo4j.node.KHashNodeData;
+import org.jxch.capital.client.db.neo4j.dao.KHashNodeRepository;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +20,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional(transactionManager = DBConfig.TRANSACTION_MANAGER)
+@Transactional(DBConfig.NEO4J_TRANSACTION_MANAGER)
 public class KHashNodeServiceImpl implements KHashNodeService {
     private final Neo4jTemplate neo4jTemplate;
     private final KHashNodeRepository repository;

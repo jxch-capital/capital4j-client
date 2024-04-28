@@ -1,4 +1,4 @@
-package org.jxch.capital.client.khash.neo4j.node;
+package org.jxch.capital.client.db.neo4j.node;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +16,4 @@ import java.util.Date;
 public class KHashNodeData {
     private String code;
     private Date date;
-
-
 }

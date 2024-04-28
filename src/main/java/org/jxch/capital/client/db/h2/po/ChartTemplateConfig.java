@@ -1,4 +1,4 @@
-package org.jxch.capital.client.db.po;
+package org.jxch.capital.client.db.h2.po;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,15 +7,16 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
+@Deprecated
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
-@Entity(name = "filter_template_config")
+@Entity(name = "chart_template_config")
 @Table(indexes = {
-        @Index(name = "filter_template_config_config_name", columnList = "config_name"),
-        @Index(name = "filter_template_config_template_name", columnList = "template_name"),
+        @Index(name = "chart_template_config_config_name", columnList = "config_name"),
+        @Index(name = "chart_template_config_template_name", columnList = "template_name"),
 })
-public class FilterTemplateConfig {
+public class ChartTemplateConfig {
     @Column(nullable = false, unique = true)
     private String configName;
     @Column(nullable = false)

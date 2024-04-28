@@ -1,4 +1,4 @@
-package org.jxch.capital.client.khash.neo4j.node;
+package org.jxch.capital.client.db.neo4j.node;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

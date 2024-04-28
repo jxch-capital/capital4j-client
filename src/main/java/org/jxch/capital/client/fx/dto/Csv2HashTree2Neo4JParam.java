@@ -16,11 +16,11 @@ import java.util.List;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Csv2HashTreeParam {
+public class Csv2HashTree2Neo4JParam {
     @Builder.Default
     private String csvPath = "G:\\app\\backup\\data\\stock_data\\csv\\5-2";
-    private String files2HashTreeService;
 
+    private String files2HashTree2Neo4JService;
     @ParamSuggestive("files2HashTreeService")
-    private List<String> allFiles2HashTreeServices = NamedOrderedServices.allSortedServiceNames(Files2HashTree.class);
+    private List<String> allFiles2Hash2Neo4JTreeServices = NamedOrderedServices.allSortedServiceNames(Files2HashTree.class);
 }

@@ -1,4 +1,4 @@
-package org.jxch.capital.client.db.dto;
+package org.jxch.capital.client.db.h2.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,16 +8,17 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
+@Deprecated
 @Data
 @Builder
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class ParentTemplateConfigDto {
+public class ChartTemplateConfigDto {
     private String configName;
     private String templateName;
-    private String templateParam;
-    private String scriptParam;
+    private String dataParamTemplate;
+    private String chartParamTemplate;
 
     private Long id;
     private Long version;

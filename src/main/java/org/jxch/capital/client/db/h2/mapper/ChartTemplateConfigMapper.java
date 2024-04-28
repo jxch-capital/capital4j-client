@@ -1,7 +1,7 @@
-package org.jxch.capital.client.db.mapper;
+package org.jxch.capital.client.db.h2.mapper;
 
-import org.jxch.capital.client.db.dto.ChartTemplateConfigDto;
-import org.jxch.capital.client.db.po.ChartTemplateConfig;
+import org.jxch.capital.client.db.h2.dto.ChartTemplateConfigDto;
+import org.jxch.capital.client.db.h2.po.ChartTemplateConfig;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

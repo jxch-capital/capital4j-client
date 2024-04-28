@@ -1,6 +1,6 @@
-package org.jxch.capital.client.khash.neo4j.dao;
+package org.jxch.capital.client.db.neo4j.dao;
 
-import org.jxch.capital.client.khash.neo4j.node.KHashNode;
+import org.jxch.capital.client.db.neo4j.node.KHashNode;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 

@@ -1,7 +1,7 @@
-package org.jxch.capital.client.db.mapper;
+package org.jxch.capital.client.db.h2.mapper;
 
-import org.jxch.capital.client.db.dto.ParentTemplateConfigDto;
-import org.jxch.capital.client.db.po.ParentTemplateConfig;
+import org.jxch.capital.client.db.h2.dto.ParentTemplateConfigDto;
+import org.jxch.capital.client.db.h2.po.ParentTemplateConfig;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

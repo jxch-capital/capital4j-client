@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface Files2HashTree extends NamedOrderedService {
 
-    void toHashTree(List<File> files);
+    void toHashTree2Neo4J(List<File> files);
 
-    void toHashTree(List<File> files, String uuid);
+    void toHashTree2Neo4J(List<File> files, String uuid);
 
 }

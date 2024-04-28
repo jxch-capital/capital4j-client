@@ -1,6 +1,6 @@
-package org.jxch.capital.client.db.dao;
+package org.jxch.capital.client.db.h2.dao;
 
-import org.jxch.capital.client.db.po.ParentTemplateConfig;
+import org.jxch.capital.client.db.h2.po.ParentTemplateConfig;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

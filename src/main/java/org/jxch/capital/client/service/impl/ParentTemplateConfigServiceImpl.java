@@ -1,9 +1,10 @@
 package org.jxch.capital.client.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.jxch.capital.client.db.dao.ParentTemplateConfigRepository;
-import org.jxch.capital.client.db.dto.ParentTemplateConfigDto;
-import org.jxch.capital.client.db.mapper.ParentTemplateConfigMapper;
+import org.jxch.capital.client.config.DBConfig;
+import org.jxch.capital.client.db.h2.dao.ParentTemplateConfigRepository;
+import org.jxch.capital.client.db.h2.dto.ParentTemplateConfigDto;
+import org.jxch.capital.client.db.h2.mapper.ParentTemplateConfigMapper;
 import org.jxch.capital.client.service.ParentTemplateConfigService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(DBConfig.TRANSACTION_MANAGER)
 public class ParentTemplateConfigServiceImpl implements ParentTemplateConfigService {
     private final ParentTemplateConfigRepository repository;
     private final ParentTemplateConfigMapper mapper;
@@ -37,7 +39,6 @@ public class ParentTemplateConfigServiceImpl implements ParentTemplateConfigServ
     }
 
     @Override
-    @Transactional
     public void deleteByConfigName(String configName) {
         repository.deleteByConfigName(configName);
     }

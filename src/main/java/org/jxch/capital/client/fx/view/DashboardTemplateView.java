@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jxch.capital.client.db.dto.ParentTemplateConfigDto;
+import org.jxch.capital.client.db.h2.dto.ParentTemplateConfigDto;
 import org.jxch.capital.client.event.operational.ParentTemplateRemoveCacheEvent;
 import org.jxch.capital.client.fx.template.dashboard.DashboardParentTemplate;
 import org.jxch.capital.client.fx.util.ComboxListCell;

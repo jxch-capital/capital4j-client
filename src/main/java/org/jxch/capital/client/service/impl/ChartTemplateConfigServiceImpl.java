@@ -2,9 +2,9 @@ package org.jxch.capital.client.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jxch.capital.client.db.dao.ChartTemplateConfigRepository;
-import org.jxch.capital.client.db.dto.ChartTemplateConfigDto;
-import org.jxch.capital.client.db.mapper.ChartTemplateConfigMapper;
+import org.jxch.capital.client.db.h2.dao.ChartTemplateConfigRepository;
+import org.jxch.capital.client.db.h2.dto.ChartTemplateConfigDto;
+import org.jxch.capital.client.db.h2.mapper.ChartTemplateConfigMapper;
 import org.jxch.capital.client.service.ChartTemplateConfigService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

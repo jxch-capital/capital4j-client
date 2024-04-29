@@ -33,12 +33,6 @@ spring:
     type: caffeine
     caffeine:
       spec: maximumSize=5000,expireAfterAccess=600s
-  neo4j:
-    uri: bolt://localhost:17687
-    authentication:
-      username: neo4j
-      password: capital4j-client
-
 
 logging:
   level:

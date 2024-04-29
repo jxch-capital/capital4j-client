@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.jxch.capital.client.db.clickhouse.dao.KHashCN5M5LRepository" >
+
+    <insert id="insert" parameterType="java.util.List">
+        INSERT INTO k_hash_cn_5m_5l
+        (id, hash5, hash10, hash16,hash24,hash48,code,ex,date)
+        VALUES
+        <foreach collection="poList" item="po" index="index" separator=",">
+            (
+            #{po.id},
+            #{po.hash5},
+            #{po.hash10},
+            #{po.hash16},
+            #{po.hash24},
+            #{po.hash48},
+            #{po.code},
+            #{po.ex},
+            #{po.date}
+            )
+        </foreach>
+    </insert>
+
+    <update id="createTableIfNotExist">
+        CREATE TABLE IF NOT EXISTS k_hash_cn_5m_5l
+        (
+            id     BIGINT,
+            hash5  INET4,
+            hash10 BIGINT,
+            hash16 BIGINT,
+            hash24 NUMERIC(24, 0),
+            hash48 NUMERIC(48, 0),
+            code   CHAR(6),
+            ex     CHAR(2),
+            date   DATETIME
+        ) engine = MergeTree()
+              PRIMARY KEY (id)
+              ORDER BY (id, hash5, hash10, hash16, hash24, hash48)
+              SETTINGS index_granularity = 8192;
+    </update>
+
+</mapper>

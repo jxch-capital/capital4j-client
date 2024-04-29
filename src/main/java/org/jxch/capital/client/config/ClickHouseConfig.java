@@ -3,11 +3,17 @@ package org.jxch.capital.client.config;
 import com.clickhouse.jdbc.ClickHouseDataSource;
 import lombok.Data;
 import lombok.SneakyThrows;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -15,7 +21,7 @@ import java.util.Properties;
 @Data
 @Configuration
 @ConfigurationProperties("spring.clickhouse.datasource")
-//@MapperScan(basePackages = {"org.jxch.capital.client.db.clickhouse"}, sqlSessionFactoryRef = ClickHouseConfig.CLICKHOUSE_SQL_SESSION_FACTORY)
+@MapperScan(basePackages = {"org.jxch.capital.client.db.clickhouse.dao"}, sqlSessionFactoryRef = ClickHouseConfig.CLICKHOUSE_SQL_SESSION_FACTORY)
 public class ClickHouseConfig {
     public static final String CLICKHOUSE_JDBC_TEMPLATE = "clickhouseJdbcTemplate";
     public static final String CLICKHOUSE_DATASOURCE = "clickhouseDataSource";
@@ -44,22 +50,22 @@ public class ClickHouseConfig {
         return new JdbcTemplate(dataSource);
     }
 
-//    @Bean(CLICKHOUSE_SQL_SESSION_FACTORY)
-//    public SqlSessionFactory clickhouseSqlSessionFactory(@Qualifier(CLICKHOUSE_DATASOURCE) DataSource dataSource) throws Exception {
-//        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-//        bean.setDataSource(dataSource);
-//        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/clickhouse/**/*.xml"));
-//        return bean.getObject();
-//    }
-//
-//    @Bean(CLICKHOUSE_TRANSACTION_MANAGER)
-//    public DataSourceTransactionManager clickhouseTransactionManager(@Qualifier(CLICKHOUSE_DATASOURCE) DataSource dataSource) {
-//        return new DataSourceTransactionManager(dataSource);
-//    }
-//
-//    @Bean(CLICKHOUSE_SQL_SESSION_TEMPLATE)
-//    public SqlSessionTemplate clickhouseSqlSessionTemplate(@Qualifier(CLICKHOUSE_SQL_SESSION_FACTORY) SqlSessionFactory sqlSessionFactory) {
-//        return new SqlSessionTemplate(sqlSessionFactory);
-//    }
+    @Bean(CLICKHOUSE_SQL_SESSION_FACTORY)
+    public SqlSessionFactory clickhouseSqlSessionFactory(@Qualifier(CLICKHOUSE_DATASOURCE) DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        bean.setDataSource(dataSource);
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("/mapper/clickhouse/**/*.xml"));
+        return bean.getObject();
+    }
+
+    @Bean(CLICKHOUSE_TRANSACTION_MANAGER)
+    public DataSourceTransactionManager clickhouseTransactionManager(@Qualifier(CLICKHOUSE_DATASOURCE) DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean(CLICKHOUSE_SQL_SESSION_TEMPLATE)
+    public SqlSessionTemplate clickhouseSqlSessionTemplate(@Qualifier(CLICKHOUSE_SQL_SESSION_FACTORY) SqlSessionFactory sqlSessionFactory) {
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }
 
 }

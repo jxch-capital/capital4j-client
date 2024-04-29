@@ -1,5 +1,6 @@
 package org.jxch.capital.client.event.operational;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.util.Duration;
 import lombok.NonNull;
@@ -12,11 +13,11 @@ public class OperationalEventListener implements ApplicationListener<Operational
 
     @Override
     public void onApplicationEvent(@NonNull OperationalEvent event) {
-        Notifications.create()
+        Platform.runLater(() -> Notifications.create()
                 .text(event.getMsg())
                 .hideAfter(Duration.seconds(5))
                 .position(Pos.TOP_RIGHT)
-                .show();
+                .show());
     }
 
 }

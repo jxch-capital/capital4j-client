@@ -3,6 +3,7 @@ package org.jxch.capital.client.config;
 import com.clickhouse.jdbc.ClickHouseDataSource;
 import lombok.Data;
 import lombok.SneakyThrows;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -65,7 +66,7 @@ public class ClickHouseConfig {
 
     @Bean(CLICKHOUSE_SQL_SESSION_TEMPLATE)
     public SqlSessionTemplate clickhouseSqlSessionTemplate(@Qualifier(CLICKHOUSE_SQL_SESSION_FACTORY) SqlSessionFactory sqlSessionFactory) {
-        return new SqlSessionTemplate(sqlSessionFactory);
+        return new SqlSessionTemplate(sqlSessionFactory, ExecutorType.BATCH);
     }
 
 }

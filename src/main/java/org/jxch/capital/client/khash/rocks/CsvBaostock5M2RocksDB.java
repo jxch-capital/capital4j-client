@@ -18,6 +18,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.Date;
@@ -61,9 +62,10 @@ public class CsvBaostock5M2RocksDB implements Files2RocksDB {
     public void toRocksDB(File file, String uuid) {
         try {
             toRocksDB(file);
-            SpringUtil.publishEvent(new ProgressBarEvent(this).setNum(1).setSucceed(true).setUuid(uuid));
+            SpringUtil.publishEvent(ProgressBarEvent.oneSucceedEvent(this, uuid));
         } catch (Throwable t) {
-            SpringUtil.publishEvent(new ProgressBarEvent(this).setNum(1).setSucceed(false).setUuid(uuid).setErrorMsg(t.getMessage()));
+            SpringUtil.publishEvent(ProgressBarEvent.oneFailEvent(this, uuid, t.getMessage()));
+            t.printStackTrace(new PrintStream(System.err));
         }
     }
 

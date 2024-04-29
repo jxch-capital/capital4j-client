@@ -60,7 +60,7 @@ public class GridNumKHashCode implements KHashCode {
         }).toList();
     }
 
-    public String hash(int skip, @NotNull List<String> hashcodeArr) {
+    public static String hash(int skip, @NotNull List<String> hashcodeArr) {
         if (skip == 1) {
             return hashcodeArr.stream().reduce(String::concat).orElseThrow();
         }

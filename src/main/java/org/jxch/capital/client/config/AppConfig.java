@@ -26,6 +26,7 @@ public class AppConfig {
     private String pythonExecutorPath;
     private String pythonWinAmd64Url;
     private String tmpPath;
+    private String logPath;
 
     public File getPythonExecutorFile() {
         return new File(pythonExecutorPath).toPath().resolve("python.exe").toFile();
@@ -64,6 +65,9 @@ public class AppConfig {
         }
         if (!new File(getTmpPath()).exists()) {
             FileUtil.mkdir(getTmpPath());
+        }
+        if (!new File(getLogPath()).exists()) {
+            FileUtil.mkdir(getLogPath());
         }
     }
 

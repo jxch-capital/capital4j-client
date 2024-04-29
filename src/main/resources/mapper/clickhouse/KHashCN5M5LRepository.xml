@@ -5,8 +5,7 @@
     <insert id="insert" parameterType="java.util.List">
         INSERT INTO k_hash_cn_5m_5l
         (id, hash5, hash10, hash16,hash24,hash48,code,ex,date)
-        VALUES
-        <foreach collection="poList" item="po" index="index" separator=",">
+        <foreach collection="poList" item="po" index="index" open="VALUES" separator="," close="">
             (
             #{po.id},
             #{po.hash5},
@@ -25,14 +24,14 @@
         CREATE TABLE IF NOT EXISTS k_hash_cn_5m_5l
         (
             id     BIGINT,
-            hash5  INET4,
+            hash5  Int32,
             hash10 BIGINT,
             hash16 BIGINT,
             hash24 NUMERIC(24, 0),
             hash48 NUMERIC(48, 0),
             code   CHAR(6),
             ex     CHAR(2),
-            date   DATETIME
+            date   DATE
         ) engine = MergeTree()
               PRIMARY KEY (id)
               ORDER BY (id, hash5, hash10, hash16, hash24, hash48)

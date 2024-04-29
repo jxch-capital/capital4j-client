@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @Builder
@@ -20,4 +21,7 @@ public class KHashCN5M5LDto {
     private Long hash16;
     private BigDecimal hash24;
     private BigDecimal hash48;
+    private String code;
+    private String ex;
+    private Date date;
 }

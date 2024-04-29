@@ -30,6 +30,8 @@ public class ProgressBarService implements Progress, ApplicationListener<Progres
 
         if (!event.isSucceed()) {
             SpringUtil.publishEvent(new SystemErrorEvent(this).setErrorMsg(event.getErrorMsg()));
+            pane.addInfoLine(event.getErrorMsg());
+            pane.addInfoLine("详情请查看日志");
         }
         if (pane.isEnd()) {
             PROGRESSES.remove(pane.getUuid());

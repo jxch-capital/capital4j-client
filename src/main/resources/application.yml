@@ -4,6 +4,7 @@ app:
   python-path: ${app.data-path}\python
   python-win-amd64-url: https://www.python.org/ftp/python/3.12.3/python-3.12.3-embed-amd64.zip
   tmp-path: ${app.data-path}\tmp
+  log-path: ${app.data-path}\log
   rocksdb:
     path: ${app.data-path}\rocksdb
 

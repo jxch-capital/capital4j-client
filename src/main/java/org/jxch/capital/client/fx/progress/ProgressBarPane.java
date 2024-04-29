@@ -8,6 +8,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.DecimalFormat;
@@ -27,6 +28,9 @@ public class ProgressBarPane {
     private final ProgressBar progressBar = new ProgressBar();
     private final Label label = new Label();
     private final TimeInterval timer = DateUtil.timer();
+    @Setter
+    @Getter
+    private String info = "";
 
     public ProgressBarPane(Integer total) {
         this.total = total;
@@ -45,7 +49,7 @@ public class ProgressBarPane {
         if (current.intValue() % (total / 100) == 0 || isEnd()) {
             Platform.runLater(() -> {
                 progressBar.setProgress(current.doubleValue() / total);
-                label.setText(msg());
+                label.setText(String.format("%s\n%s", msg(), info));
             });
         }
     }
@@ -57,6 +61,10 @@ public class ProgressBarPane {
 
     public boolean isEnd() {
         return current.intValue() == total;
+    }
+
+    public void addInfoLine(String info) {
+        this.info += "\n" + info;
     }
 
 }

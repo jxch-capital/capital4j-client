@@ -1,5 +1,6 @@
 package org.jxch.capital.client.event.system;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
@@ -12,11 +13,11 @@ public class SystemErrorEventListener implements ApplicationListener<SystemError
 
     @Override
     public void onApplicationEvent(@NotNull SystemErrorEvent event) {
-        Notifications.create()
+        Platform.runLater(() -> Notifications.create()
                 .text(event.getErrorMsg())
                 .hideAfter(Duration.seconds(10))
                 .position(Pos.TOP_RIGHT)
-                .showError();
+                .showError());
     }
 
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -14,4 +15,7 @@ public class KHashCN5M5L {
     private Long hash16;
     private BigDecimal hash24;
     private BigDecimal hash48;
+    private String code;
+    private String ex;
+    private Date date;
 }

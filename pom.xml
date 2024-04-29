@@ -19,6 +19,7 @@
         <lombok.version>1.18.32</lombok.version>
         <hutool.version>5.8.27</hutool.version>
         <h2.version>2.2.224</h2.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <clickhouse.version>0.6.0</clickhouse.version>
         <lz4.version>1.8.0</lz4.version>
         <rocksdb.version>9.1.1</rocksdb.version>
@@ -65,6 +66,12 @@
             <artifactId>spring-boot-starter-data-neo4j</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+<!--        <dependency>-->
+<!--            <groupId>com.baomidou</groupId>-->
+<!--            <artifactId>mybatis-plus-boot-starter</artifactId>-->
+<!--            <version>${mybatis.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

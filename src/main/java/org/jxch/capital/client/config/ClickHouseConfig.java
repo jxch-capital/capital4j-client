@@ -15,9 +15,13 @@ import java.util.Properties;
 @Data
 @Configuration
 @ConfigurationProperties("spring.clickhouse.datasource")
+//@MapperScan(basePackages = {"org.jxch.capital.client.db.clickhouse"}, sqlSessionFactoryRef = ClickHouseConfig.CLICKHOUSE_SQL_SESSION_FACTORY)
 public class ClickHouseConfig {
     public static final String CLICKHOUSE_JDBC_TEMPLATE = "clickhouseJdbcTemplate";
     public static final String CLICKHOUSE_DATASOURCE = "clickhouseDataSource";
+    public static final String CLICKHOUSE_SQL_SESSION_FACTORY = "clickhouseSqlSessionFactory";
+    public static final String CLICKHOUSE_TRANSACTION_MANAGER = "clickhouseTransactionManager";
+    public static final String CLICKHOUSE_SQL_SESSION_TEMPLATE = "clickhouseSqlSessionTemplate";
 
     private String jdbcUrl;
     private String driverClassName;
@@ -39,5 +43,23 @@ public class ClickHouseConfig {
     public JdbcTemplate clickhouseJdbcTemplate(@Qualifier(CLICKHOUSE_DATASOURCE) DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
+
+//    @Bean(CLICKHOUSE_SQL_SESSION_FACTORY)
+//    public SqlSessionFactory clickhouseSqlSessionFactory(@Qualifier(CLICKHOUSE_DATASOURCE) DataSource dataSource) throws Exception {
+//        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+//        bean.setDataSource(dataSource);
+//        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/clickhouse/**/*.xml"));
+//        return bean.getObject();
+//    }
+//
+//    @Bean(CLICKHOUSE_TRANSACTION_MANAGER)
+//    public DataSourceTransactionManager clickhouseTransactionManager(@Qualifier(CLICKHOUSE_DATASOURCE) DataSource dataSource) {
+//        return new DataSourceTransactionManager(dataSource);
+//    }
+//
+//    @Bean(CLICKHOUSE_SQL_SESSION_TEMPLATE)
+//    public SqlSessionTemplate clickhouseSqlSessionTemplate(@Qualifier(CLICKHOUSE_SQL_SESSION_FACTORY) SqlSessionFactory sqlSessionFactory) {
+//        return new SqlSessionTemplate(sqlSessionFactory);
+//    }
 
 }

@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jxch.capital.client.config.DBConfig;
-import org.jxch.capital.client.khash.neo4j.KHashNodeService;
+import org.jxch.capital.client.db.neo4j.dao.KHashNodeRepository;
 import org.jxch.capital.client.db.neo4j.node.KHashNode;
 import org.jxch.capital.client.db.neo4j.node.KHashNodeData;
-import org.jxch.capital.client.db.neo4j.dao.KHashNodeRepository;
+import org.jxch.capital.client.khash.neo4j.KHashNodeService;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +19,19 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@Deprecated
 @RequiredArgsConstructor
-@Transactional(DBConfig.NEO4J_TRANSACTION_MANAGER)
+@Transactional(DBConfig.TRANSACTION_MANAGER_NEO4J)
 public class KHashNodeServiceImpl implements KHashNodeService {
     private final Neo4jTemplate neo4jTemplate;
     private final KHashNodeRepository repository;
     private final static String ROOT_PATH = "0";
+
+
+//    private Optional<KHashNode> findByPathSegmentAndParentId(String pathSegment, Long parentId) {
+//        CacheUtil.newLFUCache(1000_000, )
+//    }
+
 
     @Override
     public KHashNode save(@NotNull List<String> path, KHashNodeData data) {

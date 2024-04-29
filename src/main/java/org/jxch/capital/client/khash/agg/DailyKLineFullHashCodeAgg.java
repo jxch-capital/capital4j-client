@@ -59,7 +59,7 @@ public class DailyKLineFullHashCodeAgg implements KLineFullHashCodeAgg {
                         .fluctuationUp(fluctuationUpAvg)
                         .build();
                 List<String> fullHashCodeArr = gridNumKHash.fullHashCodeArr(dayK);
-                agg.putIfAbsent(fullHashCodeArr, new KHashNodeData().setDate(dayK.getFirst().getDate()).setCode(code));
+                agg.put(fullHashCodeArr, new KHashNodeData().setDate(dayK.getFirst().getDate()).setCode(code));
             }
 
             referenceLine = dayK.getLast();

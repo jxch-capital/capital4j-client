@@ -8,7 +8,7 @@ import org.jxch.capital.client.fx.dto.Csv2HashTree2Neo4JParam;
 import org.jxch.capital.client.fx.progress.ProgressBarPane;
 import org.jxch.capital.client.fx.progress.ProgressBarService;
 import org.jxch.capital.client.fx.template.ParentTemplateService;
-import org.jxch.capital.client.khash.rocks.Files2RocksDB;
+import org.jxch.capital.client.khash.tree.Files2HashTree;
 import org.jxch.capital.client.service.NamedOrderedServices;
 
 import java.io.File;
@@ -28,9 +28,8 @@ public class Csv2HashTree2Neo4JTemplate implements KHashParentTemplate{
         List<File> files = Arrays.stream(Objects.requireNonNull(new File(param.getCsvPath()).listFiles())).toList();
 
         ProgressBarPane pane = progressBarService.registerProgress(files.size());
-        NamedOrderedServices.findServiceByName(Files2RocksDB.class, param.getFiles2HashTree2Neo4JService()).toRocksDB(files, pane.getUuid());
+        NamedOrderedServices.findServiceByName(Files2HashTree.class, param.getFiles2HashTree2Neo4JService()).toHashTree2Neo4J(files, pane.getUuid());
         return pane.getPane();
-
     }
 
     @Override

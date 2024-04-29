@@ -16,3 +16,13 @@ services:
       NEO4J_AUTH: neo4j/capital4j-client
     volumes:
       - ./data/neo4j:/data
+  clickhouse:
+    image: yandex/clickhouse-server
+    ports:
+      - "18123:8123"
+    volumes:
+      - ./data/clickhouse:/var/lib/clickhouse
+    environment:
+      - CLICKHOUSE_DB=capital4j_client
+      - CLICKHOUSE_USER=capital4j_client
+      - CLICKHOUSE_PASSWORD=capital4j_client

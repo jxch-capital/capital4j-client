@@ -1,7 +1,6 @@
 package org.jxch.capital.client.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.jxch.capital.client.config.DBConfig;
 import org.jxch.capital.client.db.h2.dao.ParentTemplateConfigRepository;
 import org.jxch.capital.client.db.h2.dto.ParentTemplateConfigDto;
 import org.jxch.capital.client.db.h2.mapper.ParentTemplateConfigMapper;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(DBConfig.TRANSACTION_MANAGER)
+@Transactional
 public class ParentTemplateConfigServiceImpl implements ParentTemplateConfigService {
     private final ParentTemplateConfigRepository repository;
     private final ParentTemplateConfigMapper mapper;

@@ -25,12 +25,6 @@ public class MainView {
         stageFactory.show(LogView.class, "系统日志");
     }
 
-    @Deprecated
-    public void template_bac(ActionEvent actionEvent) {
-        stackPane.getChildren().clear();
-        stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(ChartTemplateView.class).getParent());
-    }
-
     public void watcherTemplate(ActionEvent actionEvent) {
         stackPane.getChildren().clear();
         stackPane.getChildren().add(FXBeanUtil.getFXBindingBean(WatcherTemplateView.class).getParent());

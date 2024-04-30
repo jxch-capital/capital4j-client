@@ -19,7 +19,6 @@
         </Menu>
         <Menu text="Dashboard">
             <MenuItem mnemonicParsing="false" text="template" onAction="#dashboardTemplate"/>
-            <MenuItem mnemonicParsing="false" text="模板-back" onAction="#template_bac"/>
         </Menu>
         <Menu text="过滤器">
             <MenuItem mnemonicParsing="false" text="过滤模板" onAction="#filterTemplate"/>

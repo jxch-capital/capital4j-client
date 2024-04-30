@@ -19,8 +19,6 @@
         <lombok.version>1.18.32</lombok.version>
         <hutool.version>5.8.27</hutool.version>
         <h2.version>2.2.224</h2.version>
-        <mybatis.version>3.0.3</mybatis.version>
-        <clickhouse.version>0.6.0</clickhouse.version>
         <lz4.version>1.8.0</lz4.version>
         <rocksdb.version>9.1.1</rocksdb.version>
         <sqlite.version>3.45.3.0</sqlite.version>
@@ -62,11 +60,6 @@
             <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring-boot.version}</version>
@@ -84,18 +77,6 @@
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.clickhouse/clickhouse-jdbc -->
-        <dependency>
-            <groupId>com.clickhouse</groupId>
-            <artifactId>clickhouse-jdbc</artifactId>
-            <version>${clickhouse.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.lz4/lz4-java -->
-        <dependency>
-            <groupId>org.lz4</groupId>
-            <artifactId>lz4-java</artifactId>
-            <version>${lz4.version}</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
@@ -106,28 +87,6 @@
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp-urlconnection</artifactId>
             <version>${okhttp.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents.core5/httpcore5 -->
-        <dependency>
-            <groupId>org.apache.httpcomponents.core5</groupId>
-            <artifactId>httpcore5</artifactId>
-            <version>5.2.4</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5 -->
-        <dependency>
-            <groupId>org.apache.httpcomponents.client5</groupId>
-            <artifactId>httpclient5</artifactId>
-            <version>5.3.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->

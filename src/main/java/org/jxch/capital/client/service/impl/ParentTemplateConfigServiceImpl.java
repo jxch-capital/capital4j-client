@@ -1,9 +1,9 @@
 package org.jxch.capital.client.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.jxch.capital.client.db.h2.dao.ParentTemplateConfigRepository;
-import org.jxch.capital.client.db.h2.dto.ParentTemplateConfigDto;
-import org.jxch.capital.client.db.h2.mapper.ParentTemplateConfigMapper;
+import org.jxch.capital.client.db.pg.dao.ParentTemplateConfigRepository;
+import org.jxch.capital.client.db.pg.dto.ParentTemplateConfigDto;
+import org.jxch.capital.client.db.pg.mapper.ParentTemplateConfigMapper;
 import org.jxch.capital.client.service.ParentTemplateConfigService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

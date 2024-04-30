@@ -1,6 +1,6 @@
 package org.jxch.capital.client.service;
 
-import org.jxch.capital.client.db.h2.dto.ParentTemplateConfigDto;
+import org.jxch.capital.client.db.pg.dto.ParentTemplateConfigDto;
 
 import java.util.List;
 

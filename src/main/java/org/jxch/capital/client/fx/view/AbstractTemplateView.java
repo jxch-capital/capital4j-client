@@ -7,7 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
-import org.jxch.capital.client.db.h2.dto.ParentTemplateConfigDto;
+import org.jxch.capital.client.db.pg.dto.ParentTemplateConfigDto;
 import org.jxch.capital.client.event.operational.ParentTemplateRemoveCacheEvent;
 import org.jxch.capital.client.fx.template.ParentTemplate;
 import org.jxch.capital.client.fx.util.ComboxListCell;

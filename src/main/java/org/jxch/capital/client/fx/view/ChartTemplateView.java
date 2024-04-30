@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
-import org.jxch.capital.client.db.h2.dto.ChartTemplateConfigDto;
+import org.jxch.capital.client.db.pg.dto.ChartTemplateConfigDto;
 import org.jxch.capital.client.event.operational.ChartTemplateCacheClearEvent;
 import org.jxch.capital.client.fx.dashboard.ChartTemplate;
 import org.jxch.capital.client.fx.dto.ChartParam;

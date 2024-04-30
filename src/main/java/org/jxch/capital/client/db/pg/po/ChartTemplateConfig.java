@@ -1,4 +1,4 @@
-package org.jxch.capital.client.db.h2.po;
+package org.jxch.capital.client.db.pg.po;
 
 import jakarta.persistence.*;
 import lombok.Data;

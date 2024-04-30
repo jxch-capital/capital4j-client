@@ -3,7 +3,7 @@ package org.jxch.capital.client.service.impl;
 import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.jxch.capital.client.db.h2.dto.ChartTemplateConfigDto;
+import org.jxch.capital.client.db.pg.dto.ChartTemplateConfigDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;

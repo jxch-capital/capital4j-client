@@ -18,7 +18,7 @@
         <javafx.version>21.0.3</javafx.version>
         <lombok.version>1.18.32</lombok.version>
         <hutool.version>5.8.27</hutool.version>
-        <h2.version>2.2.224</h2.version>
+        <postgresql.version>42.7.3</postgresql.version>
         <lz4.version>1.8.0</lz4.version>
         <rocksdb.version>9.1.1</rocksdb.version>
         <sqlite.version>3.45.3.0</sqlite.version>
@@ -71,12 +71,13 @@
             <artifactId>rocksdbjni</artifactId>
             <version>${rocksdb.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>

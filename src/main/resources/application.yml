@@ -13,8 +13,8 @@ server:
 
 spring:
   datasource:
-    jdbcUrl: jdbc:h2:file:${app.h2db-path};DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
-    driverClassName: org.h2.Driver
+    url: jdbc:h2:file:${app.h2db-path};DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
+    driverClassName: org.postgresql.Driver
     username: capital4j-client
     password: capital4j-client
   jpa:

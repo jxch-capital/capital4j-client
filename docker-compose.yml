@@ -27,3 +27,14 @@ services:
       - CLICKHOUSE_DB=capital4j_client
       - CLICKHOUSE_USER=capital4j_client
       - CLICKHOUSE_PASSWORD=capital4j_client
+  pgsql:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - "15433:5432"
+    volumes:
+      - ./data/pgsql:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: capital4j_client
+      POSTGRES_USER: capital4j_client
+      POSTGRES_PASSWORD: capital4j_client

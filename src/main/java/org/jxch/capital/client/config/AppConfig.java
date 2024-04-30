@@ -21,7 +21,6 @@ import java.util.Objects;
 @ConfigurationProperties(prefix = "app")
 public class AppConfig {
     private String dataPath;
-    private String h2dbPath;
     private String pythonPath;
     private String pythonExecutorPath;
     private String pythonWinAmd64Url;

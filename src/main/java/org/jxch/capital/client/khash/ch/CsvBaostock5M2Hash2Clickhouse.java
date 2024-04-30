@@ -2,6 +2,7 @@ package org.jxch.capital.client.khash.ch;
 
 import cn.hutool.extra.spring.SpringUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jxch.capital.client.config.ThreadConfig;
@@ -14,9 +15,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.PrintStream;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class CsvBaostock5M2Hash2Clickhouse implements Files2Hash2DB {
     private final CsvBaostockKLineFileReader csvBaostockKLineFileReader;
     private final KHashCN5M5LService kHashCN5M5LService;
+    private static final ThreadLocal<Integer> THREAD_LOCAL_RETRY = new ThreadLocal<>();
 
     @Override
     @Async(ThreadConfig.IO_THREAD_POOL)
@@ -54,14 +56,28 @@ public class CsvBaostock5M2Hash2Clickhouse implements Files2Hash2DB {
         files.forEach(file -> proxy.toHash2DB(file, agg, uuid));
     }
 
+    @SneakyThrows
     @Async(ThreadConfig.IO_THREAD_POOL)
     public void toHash2DB(File file, KLines2KHash2Agg2KHashCN5M5Ls agg, String uuid) {
         try {
             toHash2DB(file, agg);
             SpringUtil.publishEvent(ProgressBarEvent.oneSucceedEvent(this, uuid));
         } catch (Throwable t) {
-            SpringUtil.publishEvent(ProgressBarEvent.oneFailEvent(this, uuid, t.getMessage()));
-            t.printStackTrace(new PrintStream(System.err));
+            SpringUtil.publishEvent(ProgressBarEvent.oneFailAndRetryEvent(this, uuid, t.getMessage()));
+            log.error("{} 任务失败，一分钟后重试", uuid, t);
+            TimeUnit.MINUTES.sleep(1);
+            retryRecord();
+            toHash2DB(file, agg, uuid);
+        } finally {
+            THREAD_LOCAL_RETRY.remove();
+        }
+    }
+
+    private void retryRecord() {
+        if (Objects.nonNull(THREAD_LOCAL_RETRY.get())) {
+            THREAD_LOCAL_RETRY.set(THREAD_LOCAL_RETRY.get() + 1);
+        } else {
+            THREAD_LOCAL_RETRY.set(1);
         }
     }
 

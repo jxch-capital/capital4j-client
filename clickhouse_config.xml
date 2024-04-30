@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<clickhouse>
+    <yandex>
+        <merge_tree>
+            <parts_to_throw_insert>2000</parts_to_throw_insert>
+            <insert_format_max_block_size>200000000</insert_format_max_block_size>
+            <max_client_network_bandwidth>500000000</max_client_network_bandwidth>
+            <max_delay_to_insert>2</max_delay_to_insert>
+            <max_suspicious_broken_parts>5</max_suspicious_broken_parts>
+        </merge_tree>
+    </yandex>
+</clickhouse>

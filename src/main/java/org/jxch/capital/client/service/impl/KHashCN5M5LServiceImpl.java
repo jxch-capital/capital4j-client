@@ -22,7 +22,8 @@ public class KHashCN5M5LServiceImpl implements KHashCN5M5LService {
 
     @Override
     public Integer saveAll(List<KHashCN5M5LDto> dtoList) {
-        return kHashCN5M5LRepository.insert(kHashCN5M5LMapper.toKHashCN5M5L(dtoList));
+        kHashCN5M5LRepository.insert(kHashCN5M5LMapper.toKHashCN5M5L(dtoList));
+        return dtoList.size();
     }
 
     @NotNull
@@ -71,7 +72,7 @@ public class KHashCN5M5LServiceImpl implements KHashCN5M5LService {
     }
 
     @PostConstruct
-    public void onApplicationEvent() {
+    public void init() {
         kHashCN5M5LRepository.createTableIfNotExist();
     }
 

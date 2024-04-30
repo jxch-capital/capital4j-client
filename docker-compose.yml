@@ -22,6 +22,7 @@ services:
       - "18123:8123"
     volumes:
       - ./data/clickhouse:/var/lib/clickhouse
+      - ./clickhouse_config.xml:/etc/clickhouse-server/config.d/custom_settings.xml
     environment:
       - CLICKHOUSE_DB=capital4j_client
       - CLICKHOUSE_USER=capital4j_client

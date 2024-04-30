@@ -1,41 +1,96 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.jxch.capital.client.db.clickhouse.dao.KHashCN5M5LRepository" >
-
-    <insert id="insert" parameterType="java.util.List">
-        INSERT INTO k_hash_cn_5m_5l
-        (id, hash5, hash10, hash16,hash24,hash48,code,ex,date)
+<mapper namespace="org.jxch.capital.client.db.clickhouse.dao.KHashCN5M5LRepository">
+    <insert id="insertHash5">
+        INSERT INTO k_hash_cn_5m_hash5 (hash5, code, ex, date)
         <foreach collection="poList" item="po" index="index" open="VALUES" separator="," close="">
-            (
-            #{po.id},
-            #{po.hash5},
-            #{po.hash10},
-            #{po.hash16},
-            #{po.hash24},
-            #{po.hash48},
-            #{po.code},
-            #{po.ex},
-            #{po.date}
-            )
+            (#{po.hash5}, #{po.code}, #{po.ex}, #{po.date})
+        </foreach>
+    </insert>
+    <insert id="insertHash10">
+        INSERT INTO k_hash_cn_5m_hash10 (hash10, code, ex, date)
+        <foreach collection="poList" item="po" index="index" open="VALUES" separator="," close="">
+            (#{po.hash10}, #{po.code}, #{po.ex}, #{po.date})
+        </foreach>
+    </insert>
+    <insert id="insertHash16">
+        INSERT INTO k_hash_cn_5m_hash16 (hash16, code, ex, date)
+        <foreach collection="poList" item="po" index="index" open="VALUES" separator="," close="">
+            (#{po.hash16}, #{po.code}, #{po.ex}, #{po.date})
+        </foreach>
+    </insert>
+    <insert id="insertHash24">
+        INSERT INTO k_hash_cn_5m_hash24 (hash24, code, ex, date)
+        <foreach collection="poList" item="po" index="index" open="VALUES" separator="," close="">
+            (#{po.hash24}, #{po.code}, #{po.ex}, #{po.date})
+        </foreach>
+    </insert>
+    <insert id="insertHash48">
+        INSERT INTO k_hash_cn_5m_hash48 (hash48, code, ex, date)
+        <foreach collection="poList" item="po" index="index" open="VALUES" separator="," close="">
+            (#{po.hash48}, #{po.code}, #{po.ex}, #{po.date})
         </foreach>
     </insert>
 
-    <update id="createTableIfNotExist">
-        CREATE TABLE IF NOT EXISTS k_hash_cn_5m_5l
+    <update id="createHash5TableIfNotExist">
+        CREATE TABLE IF NOT EXISTS k_hash_cn_5m_hash5
         (
-            id     BIGINT,
-            hash5  Int32,
+            hash5 Int32,
+            code  CHAR(6),
+            ex    CHAR(2),
+            date  DATE
+        ) engine = MergeTree()
+              PRIMARY KEY (hash5)
+              ORDER BY (hash5)
+              SETTINGS index_granularity = 8192, parts_to_delay_insert=500;
+    </update>
+    <update id="createHash10TableIfNotExist">
+        CREATE TABLE IF NOT EXISTS k_hash_cn_5m_hash10
+        (
             hash10 BIGINT,
+            code   CHAR(6),
+            ex     CHAR(2),
+            date   DATE
+        ) engine = MergeTree()
+              PRIMARY KEY (hash10)
+              ORDER BY (hash10)
+              SETTINGS index_granularity = 8192, parts_to_delay_insert=500;
+    </update>
+    <update id="createHash16TableIfNotExist">
+        CREATE TABLE IF NOT EXISTS k_hash_cn_5m_hash16
+        (
             hash16 BIGINT,
+            code   CHAR(6),
+            ex     CHAR(2),
+            date   DATE
+        ) engine = MergeTree()
+              PRIMARY KEY (hash16)
+              ORDER BY (hash16)
+              SETTINGS index_granularity = 8192, parts_to_delay_insert=500;
+    </update>
+    <update id="createHash24TableIfNotExist">
+        CREATE TABLE IF NOT EXISTS k_hash_cn_5m_hash24
+        (
             hash24 NUMERIC(24, 0),
+            code   CHAR(6),
+            ex     CHAR(2),
+            date   DATE
+        ) engine = MergeTree()
+              PRIMARY KEY (hash24)
+              ORDER BY (hash24)
+              SETTINGS index_granularity = 8192, parts_to_delay_insert=500;
+    </update>
+    <update id="createHash48TableIfNotExist">
+        CREATE TABLE IF NOT EXISTS k_hash_cn_5m_hash48
+        (
             hash48 NUMERIC(48, 0),
             code   CHAR(6),
             ex     CHAR(2),
             date   DATE
         ) engine = MergeTree()
-              PRIMARY KEY (id)
-              ORDER BY (id, hash5, hash10, hash16, hash24, hash48)
-              SETTINGS index_granularity = 8192;
+              PRIMARY KEY (hash48)
+              ORDER BY (hash48)
+              SETTINGS index_granularity = 8192, parts_to_delay_insert=500;
     </update>
 
 </mapper>

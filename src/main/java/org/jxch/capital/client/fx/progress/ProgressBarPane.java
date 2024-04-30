@@ -55,8 +55,8 @@ public class ProgressBarPane {
     }
 
     private String msg() {
-        return String.format("[%s] >>>> [%s/%s] [%s%%] ---[%s]", timer.intervalPretty(), current.intValue(), total,
-                new DecimalFormat("0.00").format(current.doubleValue() / total * 100), uuid);
+        return String.format("[%s] [%s/%s] [%s%%] [%s]", uuid, current.intValue(), total,
+                new DecimalFormat("0.00").format(current.doubleValue() / total * 100), timer.intervalPretty());
     }
 
     public boolean isEnd() {

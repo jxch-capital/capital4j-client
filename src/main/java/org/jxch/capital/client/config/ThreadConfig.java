@@ -17,6 +17,7 @@ import java.util.concurrent.Executors;
 public class ThreadConfig {
     public final static String VIRTUAL_THREAD_POOL = "VIRTUAL_THREAD_POOL";
     public final static String IO_THREAD_POOL = "IO_THREAD_POOL";
+    public final static String COMPUTE_THREAD_POOL = "COMPUTE_THREAD_POOL";
     private List<ExecutorService> executorServiceList = new ArrayList<>();
 
     @Bean(name = VIRTUAL_THREAD_POOL)
@@ -27,8 +28,15 @@ public class ThreadConfig {
     }
 
     @Bean(name = IO_THREAD_POOL)
-    public ExecutorService threadPool() {
+    public ExecutorService ioThreadPool() {
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() / 2);
+        executorServiceList.add(executorService);
+        return executorService;
+    }
+
+    @Bean(name = COMPUTE_THREAD_POOL)
+    public ExecutorService computeThreadPool() {
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
         executorServiceList.add(executorService);
         return executorService;
     }

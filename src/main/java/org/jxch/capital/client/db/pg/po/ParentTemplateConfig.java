@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.jxch.capital.client.db.pg.base.IdBasePo;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -15,7 +16,7 @@ import lombok.experimental.Accessors;
         @Index(name = "parent_template_config_config_name", columnList = "config_name"),
         @Index(name = "parent_template_config_template_name", columnList = "template_name"),
 })
-public class ParentTemplateConfig extends BasePo {
+public class ParentTemplateConfig extends IdBasePo {
     @Column(nullable = false, unique = true)
     private String configName;
     @Column(nullable = false)

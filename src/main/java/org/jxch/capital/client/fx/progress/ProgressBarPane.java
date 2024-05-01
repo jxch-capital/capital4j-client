@@ -5,6 +5,7 @@ import cn.hutool.core.date.TimeInterval;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
@@ -27,29 +28,40 @@ public class ProgressBarPane {
     private final StackPane pane = new StackPane();
     private final ProgressBar progressBar = new ProgressBar();
     private final Label label = new Label();
+    private final TextArea textArea = new TextArea();
+    private final TextArea textAreaErrors = new TextArea();
     private final TimeInterval timer = DateUtil.timer();
     @Setter
     @Getter
     private String info = "";
+    @Setter
+    @Getter
+    private String message = "";
+    private String errors = "";
+
+    @Setter
+    private Integer granularity = 100;
 
     public ProgressBarPane(Integer total) {
         this.total = total;
         this.label.setText(msg());
-        progressBar.setMinWidth(label.getWidth() * 2);
+        progressBar.setMinWidth(textArea.getWidth());
 
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(this.progressBar, this.label);
+        vBox.getChildren().addAll(this.progressBar, this.label, new Label("Detail"), this.textArea, new Label("Error"), this.textAreaErrors);
         this.pane.getChildren().add(vBox);
     }
 
     public void add(Integer increment) {
         current.add(increment);
-        log.info(msg());
+        log.info("{} {}", msg(), info);
 
-        if (current.intValue() % (total / 100) == 0 || isEnd()) {
+        if (current.intValue() % (total / granularity) == 0 || isEnd()) {
             Platform.runLater(() -> {
                 progressBar.setProgress(current.doubleValue() / total);
-                label.setText(String.format("%s\n%s", msg(), info));
+                label.setText(String.format("%s %s", msg(), info));
+                textArea.setText(message);
+                textAreaErrors.setText(errors);
             });
         }
     }
@@ -63,8 +75,13 @@ public class ProgressBarPane {
         return current.intValue() == total;
     }
 
-    public void addInfoLine(String info) {
-        this.info += "\n" + info;
+    public void addMessageLine(String message) {
+        this.message += "\n" + message;
+    }
+
+    public void addErrorsLine(String errors) {
+        this.errors += "\n" + errors;
+        Platform.runLater(() -> textAreaErrors.setText(this.errors));
     }
 
 }

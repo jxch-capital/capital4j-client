@@ -16,6 +16,7 @@ public class ProgressBarEvent extends ApplicationEvent {
     private int num = 1;
     private String uuid;
     private String errorMsg;
+    private String info;
     private Boolean retry;
 
     public ProgressBarEvent(Object source) {
@@ -32,6 +33,10 @@ public class ProgressBarEvent extends ApplicationEvent {
 
     public boolean isFail() {
         return !succeed && (Objects.isNull(retry) || !retry);
+    }
+
+    public boolean hasInfo() {
+        return Objects.nonNull(info);
     }
 
     public static ProgressBarEvent oneSucceedEvent(Object source, String uuid) {

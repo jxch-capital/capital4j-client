@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jxch.capital.client.db.pg.sharding.dao.KHashCN5M5LRepository">
+
+    <insert id="insert">
+        INSERT INTO k_hash_cn_5m_5l_${tableNumber} (id, hash5, hash10, hash16, hash24_1, hash24_2, hash48_1, hash48_2, hash48_3, hash48_4, ex)
+        <foreach collection="poList" item="po" index="index" open="VALUES" separator="," close="">
+            (#{po.id},#{po.hash5},#{po.hash10},#{po.hash16},#{po.hash24_1},#{po.hash24_2},#{po.hash48_1},#{po.hash48_2},#{po.hash48_3},#{po.hash48_4},#{po.ex})
+        </foreach>
+        ON CONFLICT (id)
+        DO NOTHING
+        </insert>
+
+</mapper>

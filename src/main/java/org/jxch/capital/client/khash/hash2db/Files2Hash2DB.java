@@ -1,4 +1,4 @@
-package org.jxch.capital.client.khash.ch;
+package org.jxch.capital.client.khash.hash2db;
 
 import org.jxch.capital.client.service.NamedOrderedService;
 

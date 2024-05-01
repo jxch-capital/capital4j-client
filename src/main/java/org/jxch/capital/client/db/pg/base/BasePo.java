@@ -1,18 +1,17 @@
-package org.jxch.capital.client.db.pg.po;
+package org.jxch.capital.client.db.pg.base;
 
-import jakarta.persistence.*;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Version;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @MappedSuperclass
 public class BasePo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     @Version
     private Long version;
     private Date createTime;
@@ -28,4 +27,5 @@ public class BasePo {
         this.createTime = new Date();
         this.updateTime = new Date();
     }
+
 }

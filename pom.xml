@@ -19,6 +19,7 @@
         <lombok.version>1.18.32</lombok.version>
         <hutool.version>5.8.27</hutool.version>
         <postgresql.version>42.7.3</postgresql.version>
+        <mybatis.version>3.0.3</mybatis.version>
         <lz4.version>1.8.0</lz4.version>
         <rocksdb.version>9.1.1</rocksdb.version>
         <sqlite.version>3.45.3.0</sqlite.version>
@@ -58,6 +59,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -197,12 +203,6 @@
             <version>${jna.version}</version>
         </dependency>
 
-
-<!--        <dependency>-->
-<!--            <groupId>org.jxch.free</groupId>-->
-<!--            <artifactId>spring-data-jpa-sharding</artifactId>-->
-<!--            <version>3.2.5-SNAPSHOT</version>-->
-<!--        </dependency>-->
     </dependencies>
 
     <build>

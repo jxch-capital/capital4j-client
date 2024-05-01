@@ -12,10 +12,16 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:15433/capital4j_client
+    jdbcUrl: jdbc:postgresql://localhost:15433/capital4j_client
     driverClassName: org.postgresql.Driver
     username: capital4j_client
     password: capital4j_client
+    hikari:
+      maximum-pool-size: 100
+      pool-name: SpringBootHikariCP
+      idle-timeout: 800000
+      connection-timeout: 800000
+      max-lifetime: 8800000
   jpa:
     hibernate:
       ddl-auto: update

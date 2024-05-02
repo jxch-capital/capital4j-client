@@ -1,11 +1,38 @@
-
-
-
 app:
   data-path: G:\data\development\capital4j-client
-  h2db-path: ${app.data-path}\h2
   python-path: ${app.data-path}\python
   python-win-amd64-url: https://www.python.org/ftp/python/3.12.3/python-3.12.3-embed-amd64.zip
   tmp-path: ${app.data-path}\tmp
+  log-path: ${app.data-path}\log
   rocksdb:
     path: ${app.data-path}\rocksdb
+
+server:
+  port: 18080
+
+spring:
+  datasource:
+    jdbcUrl: jdbc:postgresql://localhost:15433/capital4j_client
+    driverClassName: org.postgresql.Driver
+    username: capital4j_client
+    password: capital4j_client
+    hikari:
+      maximum-pool-size: 100
+      pool-name: SpringBootHikariCP
+      idle-timeout: 800000
+      connection-timeout: 800000
+      max-lifetime: 8800000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  application:
+    name: Capital4J-Client
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=5000,expireAfterAccess=600s
+
+logging:
+  level:
+    sql: info

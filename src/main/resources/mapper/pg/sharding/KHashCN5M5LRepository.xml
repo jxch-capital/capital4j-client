@@ -12,5 +12,11 @@
         ON CONFLICT (id)
         DO NOTHING
         </insert>
+    <select id="findByIdBetween" resultType="org.jxch.capital.client.db.pg.sharding.po.KHashCN5M5L">
+        SELECT * FROM k_hash_cn_5m_5l_${tableNumber} k WHERE k.id BETWEEN #{form} AND #{to}
+    </select>
+    <select id="findByIdBetweenByPage" resultType="org.jxch.capital.client.db.pg.sharding.po.KHashCN5M5L">
+        SELECT * FROM k_hash_cn_5m_5l_${tableNumber} k WHERE k.id BETWEEN #{form} AND #{to} LIMIT #{pageSize} OFFSET #{currIndex}
+    </select>
 
 </mapper>

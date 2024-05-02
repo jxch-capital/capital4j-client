@@ -9,6 +9,16 @@ import org.jetbrains.annotations.NotNull;
 @MappedSuperclass
 public class KHashCN5M5L {
     public static final Integer SHARDING_NUMBER = 10;
+    public static final Integer LEN_ID = 19;
+    public static final Integer LEN_HASH5 = 5;
+    public static final Integer LEN_HASH10 = 10;
+    public static final Integer LEN_HASH16 = 16;
+    public static final Integer LEN_HASH24_1 = 12;
+    public static final Integer LEN_HASH24_2 = 12;
+    public static final Integer LEN_HASH48_1 = 12;
+    public static final Integer LEN_HASH48_2 = 12;
+    public static final Integer LEN_HASH48_3 = 12;
+    public static final Integer LEN_HASH48_4 = 12;
 
     @NotNull
     public static String getTableNumber(Long id) {
@@ -17,6 +27,16 @@ public class KHashCN5M5L {
         int idSum = idSuffix.chars().reduce(Integer::sum).orElseThrow(() -> new RuntimeException("id编码失败，请检查id是否大于5位"));
         long number = idSum % SHARDING_NUMBER + 1;
         return "0".repeat(2 - String.valueOf(number).length()) + number;
+    }
+
+    @NotNull
+    public static Long getFormIndexByPrefix(@NotNull String prefix, Integer len) {
+        return Long.parseLong(prefix + "0".repeat(len - prefix.length()));
+    }
+
+    @NotNull
+    public static Long getToIndexByPrefix(@NotNull String prefix, Integer len) {
+        return Long.parseLong((1 + Long.parseLong(prefix)) + "0".repeat(len - prefix.length()));
     }
 
     @Id

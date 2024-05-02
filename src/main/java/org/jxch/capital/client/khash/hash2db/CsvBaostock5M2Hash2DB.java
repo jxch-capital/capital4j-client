@@ -53,6 +53,9 @@ public class CsvBaostock5M2Hash2DB implements Files2Hash2DB {
 
     @SneakyThrows
     private synchronized void saveAll(String uuid) {
+        if (Objects.isNull(JOB_QUEUE.get(uuid))) {
+            return;
+        }
         List<KHashCN5M5LDto> dtoList = new ArrayList<>(JOB_QUEUE.get(uuid).size());
         JOB_QUEUE.get(uuid).drainTo(dtoList);
         try {
@@ -94,7 +97,7 @@ public class CsvBaostock5M2Hash2DB implements Files2Hash2DB {
     }
 
     @Transactional
-    @Async(ThreadConfig.IO_THREAD_POOL)
+//    @Async(ThreadConfig.IO_THREAD_POOL)
     public void toHash2DB(@NotNull File file, @NotNull KLines2KHash2Agg<KHashCN5M5LDto> agg, String uuid) {
         try {
             do2Hash2DB(file, agg, uuid);

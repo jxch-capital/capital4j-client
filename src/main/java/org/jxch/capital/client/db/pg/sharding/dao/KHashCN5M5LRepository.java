@@ -24,4 +24,20 @@ public interface KHashCN5M5LRepository {
         return 0;
     }
 
+    List<KHashCN5M5L> findByIdBetween(Long form, Long to, String tableNumber);
+
+    default List<KHashCN5M5L> findByPrefixIdBetween(String prefixId) {
+        return findByIdBetween(KHashCN5M5L.getFormIndexByPrefix(prefixId, KHashCN5M5L.LEN_ID),
+                KHashCN5M5L.getToIndexByPrefix(prefixId, KHashCN5M5L.LEN_ID),
+                KHashCN5M5L.getTableNumber(Long.parseLong(prefixId)));
+    }
+
+    List<KHashCN5M5L> findByIdBetweenByPage(Long form, Long to, String tableNumber, int currIndex, int pageSize);
+
+    default List<KHashCN5M5L> findByPrefixIdBetween(String prefixId, int currIndex, int pageSize) {
+        return findByIdBetweenByPage(KHashCN5M5L.getFormIndexByPrefix(prefixId, KHashCN5M5L.LEN_ID),
+                KHashCN5M5L.getToIndexByPrefix(prefixId, KHashCN5M5L.LEN_ID),
+                KHashCN5M5L.getTableNumber(Long.parseLong(prefixId)), currIndex, pageSize);
+    }
+
 }

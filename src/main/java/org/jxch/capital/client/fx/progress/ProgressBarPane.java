@@ -56,7 +56,7 @@ public class ProgressBarPane {
         current.add(increment);
         log.info("{} {}", msg(), info);
 
-        if (current.intValue() % (total / granularity) == 0 || isEnd()) {
+        if (current.intValue() % (total > granularity ? total / granularity : 1) == 0 || isEnd()) {
             Platform.runLater(() -> {
                 progressBar.setProgress(current.doubleValue() / total);
                 label.setText(String.format("%s %s", msg(), info));
